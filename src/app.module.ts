@@ -8,6 +8,7 @@ import { User } from 'src/user/entities/user.entity';
 import { UserModule } from './user/user.module';
 import { UserService } from './user/user.service';
 import * as dotenv from 'dotenv';
+import { AppService } from './app.service';
 
 dotenv.config({ path: '.env.local' });
 
@@ -28,7 +29,7 @@ dotenv.config({ path: '.env.local' });
     }),
   ],
   controllers: [AppController],
-  providers: [UserService],
+  providers: [AppService],
 })
 export class AppModule {
   constructor(private dataSource: DataSource) {}
