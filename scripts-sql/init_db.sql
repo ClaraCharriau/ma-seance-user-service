@@ -11,7 +11,7 @@ DROP TABLE IF EXISTS theater_bookmark;
 CREATE TABLE "user"  (
   id_user UUID PRIMARY KEY DEFAULT gen_random_uuid(),
   pseudo VARCHAR(100) NOT NULL,
-  email VARCHAR(255) NOT NULL,
+  email VARCHAR(255) UNIQUE NOT NULL,
   password VARCHAR(255) NOT NULL
 );
 
