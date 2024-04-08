@@ -1,14 +1,13 @@
 import { Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
+import * as dotenv from 'dotenv';
+import { User } from 'src/user/entities/user.entity';
 import { DataSource } from 'typeorm';
 import { AppController } from './app.controller';
-import { AuthModule } from './auth/auth.module';
-import { User } from 'src/user/entities/user.entity';
-import { UserModule } from './user/user.module';
-import { UserService } from './user/user.service';
-import * as dotenv from 'dotenv';
 import { AppService } from './app.service';
+import { AuthModule } from './auth/auth.module';
+import { UserModule } from './user/user.module';
 
 dotenv.config({ path: '.env.local' });
 
