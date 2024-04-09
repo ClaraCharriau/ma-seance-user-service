@@ -2,22 +2,29 @@ import { Injectable, NotFoundException } from '@nestjs/common';
 import { Repository } from 'typeorm';
 import { User } from './entities/user.entity';
 import { InjectRepository } from '@nestjs/typeorm';
+import { UpdateUserDto } from './dto/updateUser.dto';
 const bcrypt = require('bcrypt');
 
 @Injectable()
 export class UserService {
-  saltRounds = 10;
 
   constructor(
     @InjectRepository(User)
     private usersRepository: Repository<User>,
   ) {}
 
-  async findUserByEmail(email: string): Promise<User | undefined> {
+  async findUserByEmail(email: string): Promise<User> {
     if (!(await this.usersRepository.existsBy({ email }))) {
       throw new NotFoundException(`No user with email : ${email} was found`);
     }
     return await this.usersRepository.findOneBy({ email });
+  }
+
+  async findUserById(id: string): Promise<User> {
+    if (!(await this.usersRepository.existsBy({ id }))) {
+      throw new NotFoundException(`No user with id : ${id} was found`);
+    }
+    return await this.usersRepository.findOneBy({ id });
   }
 
   async existsByEmail(email: string): Promise<boolean> {
@@ -37,7 +44,17 @@ export class UserService {
     return newUser;
   }
 
+  async updateUser(id: string, updateUserDto: UpdateUserDto) {
+    if (!(await this.usersRepository.existsBy({ id }))) {
+      throw new NotFoundException(`No user with id : ${id} was found`);
+    }
+
+    updateUserDto.password = await this.hashPassword(updateUserDto.password);
+    
+    await this.usersRepository.update(id, updateUserDto);
+  }
+
   private async hashPassword(password: string) {
-    return await bcrypt.hash(password, this.saltRounds);
+    return await bcrypt.hash(password, 10);
   }
 }

@@ -4,6 +4,7 @@ import { AuthService } from '../../src/auth/auth.service';
 import { VerifyResponseDto } from 'src/auth/dto/verifyResponse.dto';
 import { SignInDto } from 'src/auth/dto/signIn.dto';
 import * as mockUser from '../mocks/user_200.json';
+import { UpdateUserDto } from 'src/user/dto/updateUser.dto';
 
 describe('AuthController tests', () => {
   let authController: AuthController;
@@ -27,6 +28,7 @@ describe('AuthController tests', () => {
             verify: jest
               .fn()
               .mockImplementation(() => Promise.resolve(mockVerifyResponse)),
+            updateUser: jest.fn()
           },
         },
       ],
@@ -77,6 +79,24 @@ describe('AuthController tests', () => {
 
     // When
     const result = await authController.signIn(signInDto);
+
+    // Then
+    expect(result).toEqual(mockUser);
+  });
+
+  it('should update and return a user', async () => {
+    // Given
+    const id = '1';
+    const updateUserDto: UpdateUserDto = {
+      id,
+      email: 'test@example.com',
+      pseudo: 'newPseudo',
+      password: 'newPassword',
+    };
+    jest.spyOn(authService, 'updateUser').mockResolvedValue(mockUser);
+
+    // When
+    const result = await authController.updateUser(id, updateUserDto);
 
     // Then
     expect(result).toEqual(mockUser);

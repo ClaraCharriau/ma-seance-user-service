@@ -1,4 +1,4 @@
-import { Body, Controller, HttpCode, HttpStatus, Post } from '@nestjs/common';
+import { Body, Controller, HttpCode, HttpStatus, Param, Patch, Post } from '@nestjs/common';
 import { AuthService } from './auth.service';
 import { SignInDto } from './dto/signIn.dto';
 import { TokenDto } from './dto/token.dto';
@@ -6,13 +6,14 @@ import { EmailDto } from './dto/email.dto';
 import { VerifyResponseDto } from './dto/verifyResponse.dto';
 import { User } from 'src/user/entities/user.entity';
 import { LogInDto } from './dto/logIn.dto';
+import { UpdateUserDto } from 'src/user/dto/updateUser.dto';
 
 @Controller('v1/auth')
 export class AuthController {
   constructor(private authService: AuthService) {}
 
   /**
-   * /POST login
+   * POST /login
    * will receive the username and password in the request body,
    * and will return a JWT token if the user is authenticated.
    *
@@ -26,7 +27,7 @@ export class AuthController {
   }
 
   /**
-   * /POST Registrations
+   * POST /registrations
    * will receive the username, email and password in the request body,
    * and will return the authenticated user.
    *
@@ -44,7 +45,22 @@ export class AuthController {
   }
 
   /**
-   * /POST verify
+   * POST /registrations/{id}
+   * will receive a id in param and a updateUserDto in the request body,
+   * and will return the successfully updated user.
+   *
+   * @param id
+   * @param updateUserDto
+   * @returns Promise<User>
+   */
+  @HttpCode(HttpStatus.CREATED)
+  @Patch('registrations/:id')
+  updateUser(@Param('id') id: string, @Body() updateUserDto: UpdateUserDto): Promise<User> {
+    return this.authService.updateUser(id, updateUserDto);
+  }
+
+  /**
+   * POST /verify
    * will receive an email in the request body,
    * and will return a boolean depending on the account existence.
    *

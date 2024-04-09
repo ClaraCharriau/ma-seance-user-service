@@ -1,11 +1,12 @@
 import { BadRequestException, UnauthorizedException } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import { Test, TestingModule } from '@nestjs/testing';
-import * as bcrypt from 'bcrypt';
+const bcrypt = require('bcrypt');
 import { VerifyResponseDto } from 'src/auth/dto/verifyResponse.dto';
 import { AuthService } from '../../src/auth/auth.service';
 import { UserService } from '../../src/user/user.service';
 import * as mockUser from '../mocks/user_200.json';
+import { UpdateUserDto } from 'src/user/dto/updateUser.dto';
 
 describe('AuthService', () => {
   let authService: AuthService;
@@ -21,6 +22,8 @@ describe('AuthService', () => {
             findUserByEmail: jest.fn(),
             existsByEmail: jest.fn(),
             createUser: jest.fn(),
+            updateUser: jest.fn(),
+            findUserById: jest.fn()
           },
         },
         {
@@ -120,5 +123,35 @@ describe('AuthService', () => {
       pseudo: 'test',
       password: 'hashPass',
     });
+  });
+
+  it('should update an user', async () => {
+    const email = 'test@example.com';
+    const id = 'e047bda3-b2fa-418b-adb6-c0cfaad7b18b';
+    const updateUserDto: UpdateUserDto = {
+      id,
+      email: 'test@example.com',
+      pseudo: 'newPseudo',
+      password: 'newPassword',
+    }
+    const updatedUser: UpdateUserDto = {
+      id,
+      email: 'test@example.com',
+      pseudo: 'newPseudo',
+      password: 'hashPass',
+    }
+    const updateUserSpy = jest.spyOn(userService, 'updateUser');
+    jest.spyOn(userService, 'findUserById').mockResolvedValueOnce(updatedUser);
+    
+
+    const result = await authService.updateUser(id, updateUserDto);
+
+    expect(result).toEqual({
+      id: 'e047bda3-b2fa-418b-adb6-c0cfaad7b18b',
+      email,
+      pseudo: 'newPseudo',
+      password: 'hashPass',
+    });
+    expect(updateUserSpy).toHaveBeenCalled();
   });
 });
