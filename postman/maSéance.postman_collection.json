@@ -5,5 +5,257 @@
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
 		"_exporter_id": "26169347"
 	},
-	"item": []
+	"item": [
+		{
+			"name": "auth",
+			"item": [
+				{
+					"name": "log in - 200",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"email\": \"joey_tribbiani@example.com\",\n    \"password\": \"password5\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:3030/maseance/api/v1/auth/login",
+							"host": [
+								"localhost"
+							],
+							"port": "3030",
+							"path": [
+								"maseance",
+								"api",
+								"v1",
+								"auth",
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "log in - 401",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"email\": \"joey_tribbiani@example.com\",\n    \"password\": \"not-good-pass\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:3030/maseance/api/v1/auth/login",
+							"host": [
+								"localhost"
+							],
+							"port": "3030",
+							"path": [
+								"maseance",
+								"api",
+								"v1",
+								"auth",
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "sign in - 200",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"email\": \"toto2@example.com\",\n    \"pseudo\": \"AnotherToto\",\n    \"password\": \"superpassword\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:3030/maseance/api/v1/auth/registrations",
+							"host": [
+								"localhost"
+							],
+							"port": "3030",
+							"path": [
+								"maseance",
+								"api",
+								"v1",
+								"auth",
+								"registrations"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "sign in - 400",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"email\": \"joey_tribbiani@example.com\",\n    \"pseudo\": \"jojoey\",\n    \"password\": \"superpassword\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:3030/maseance/api/v1/auth/registrations",
+							"host": [
+								"localhost"
+							],
+							"port": "3030",
+							"path": [
+								"maseance",
+								"api",
+								"v1",
+								"auth",
+								"registrations"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "verify - true 200",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"email\": \"chandler_bing@example.com\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:3030/maseance/api/v1/auth/verify",
+							"host": [
+								"localhost"
+							],
+							"port": "3030",
+							"path": [
+								"maseance",
+								"api",
+								"v1",
+								"auth",
+								"verify"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "verify - false 200",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"email\": \"notanexisting@email.com\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:3030/maseance/api/v1/auth/verify",
+							"host": [
+								"localhost"
+							],
+							"port": "3030",
+							"path": [
+								"maseance",
+								"api",
+								"v1",
+								"auth",
+								"verify"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "verify - 400",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:3030/maseance/api/v1/auth/verify",
+							"host": [
+								"localhost"
+							],
+							"port": "3030",
+							"path": [
+								"maseance",
+								"api",
+								"v1",
+								"auth",
+								"verify"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		}
+	]
 }
