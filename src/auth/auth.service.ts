@@ -8,6 +8,7 @@ import { UserService } from '../user/user.service';
 import { TokenDto } from './dto/token.dto';
 import { VerifyResponseDto } from './dto/verifyResponse.dto';
 import { User } from 'src/user/entities/user.entity';
+import { UpdateUserDto } from 'src/user/dto/updateUser.dto';
 const bcrypt = require('bcrypt');
 
 /**
@@ -48,6 +49,15 @@ export class AuthService {
   async verify(email: string): Promise<VerifyResponseDto> {
     if (!email) throw new BadRequestException();
     return { isExistingAccount: await this.userService.existsByEmail(email) };
+  }
+
+  async updateUser(
+    id: string,
+    updateUserDto: UpdateUserDto,
+  ): Promise<User> {
+    await this.userService.updateUser(id, updateUserDto);
+
+    return await this.userService.findUserById(id);
   }
 
   private async isPasswordValid(

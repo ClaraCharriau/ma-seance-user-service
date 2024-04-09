@@ -13,7 +13,7 @@ dotenv.config({ path: '.env.local' });
     JwtModule.register({
       global: true,
       secret: process.env.JWT_CONSTANT,
-      signOptions: { expiresIn: '60s' },
+      signOptions: { expiresIn: '4h' },
     }),
   ],
   controllers: [AuthController],
