@@ -1,8 +1,13 @@
-import { Injectable, UnauthorizedException } from '@nestjs/common';
+import {
+  BadRequestException,
+  Injectable,
+  UnauthorizedException,
+} from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import { UserService } from '../user/user.service';
 import { TokenDto } from './dto/token.dto';
 import { VerifyResponseDto } from './dto/verifyResponse.dto';
+import { User } from 'src/user/entities/user.entity';
 const bcrypt = require('bcrypt');
 
 /**
@@ -16,7 +21,7 @@ export class AuthService {
     private jwtService: JwtService,
   ) {}
 
-  async signIn(email: string, pass: string): Promise<TokenDto> {
+  async logIn(email: string, pass: string): Promise<TokenDto> {
     const user = await this.userService.findUserByEmail(email);
 
     if (await this.isPasswordValid(pass, user?.password)) {
@@ -29,9 +34,20 @@ export class AuthService {
     throw new UnauthorizedException();
   }
 
+  async signIn(email: string, pseudo: string, password: string): Promise<User> {
+    const isExistingUser = await this.userService.existsByEmail(email);
+    if (isExistingUser) {
+      throw new BadRequestException(
+        `User with email: ${email} already exists.`,
+      );
+    }
+
+    return await this.userService.createUser(email, pseudo, password);
+  }
+
   async verify(email: string): Promise<VerifyResponseDto> {
-    const user = await this.userService.findUserByEmail(email);
-    return { isExistingAccount: !!user };
+    if (!email) throw new BadRequestException();
+    return { isExistingAccount: await this.userService.existsByEmail(email) };
   }
 
   private async isPasswordValid(

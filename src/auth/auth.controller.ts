@@ -4,23 +4,43 @@ import { SignInDto } from './dto/signIn.dto';
 import { TokenDto } from './dto/token.dto';
 import { EmailDto } from './dto/email.dto';
 import { VerifyResponseDto } from './dto/verifyResponse.dto';
+import { User } from 'src/user/entities/user.entity';
+import { LogInDto } from './dto/logIn.dto';
 
 @Controller('v1/auth')
 export class AuthController {
   constructor(private authService: AuthService) {}
 
   /**
-   * /POST Registrations
+   * /POST login
    * will receive the username and password in the request body,
    * and will return a JWT token if the user is authenticated.
    *
-   * @param signInDto
+   * @param logInDto
    * @returns Promise<TokenDto> with JWT accessToken
    */
   @HttpCode(HttpStatus.OK)
+  @Post('login')
+  logIn(@Body() logInDto: LogInDto): Promise<TokenDto> {
+    return this.authService.logIn(logInDto.email, logInDto.password);
+  }
+
+  /**
+   * /POST Registrations
+   * will receive the username, email and password in the request body,
+   * and will return the authenticated user.
+   *
+   * @param signInDto
+   * @returns Promise<User>
+   */
+  @HttpCode(HttpStatus.CREATED)
   @Post('registrations')
-  signIn(@Body() signInDto: SignInDto): Promise<TokenDto> {
-    return this.authService.signIn(signInDto.email, signInDto.password);
+  signIn(@Body() signInDto: SignInDto): Promise<User> {
+    return this.authService.signIn(
+      signInDto.email,
+      signInDto.pseudo,
+      signInDto.password,
+    );
   }
 
   /**

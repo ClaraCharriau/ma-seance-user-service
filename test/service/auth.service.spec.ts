@@ -1,4 +1,4 @@
-import { UnauthorizedException } from '@nestjs/common';
+import { BadRequestException, UnauthorizedException } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import { Test, TestingModule } from '@nestjs/testing';
 import * as bcrypt from 'bcrypt';
@@ -19,6 +19,8 @@ describe('AuthService', () => {
           provide: UserService,
           useValue: {
             findUserByEmail: jest.fn(),
+            existsByEmail: jest.fn(),
+            createUser: jest.fn(),
           },
         },
         {
@@ -45,7 +47,7 @@ describe('AuthService', () => {
     jest.spyOn(userService, 'findUserByEmail').mockResolvedValueOnce(mockUser);
 
     // When
-    const result = await authService.signIn(email, password);
+    const result = await authService.logIn(email, password);
 
     // Then
     expect(result.access_token).toEqual('fakeAccessToken');
@@ -57,7 +59,7 @@ describe('AuthService', () => {
     jest.spyOn(bcrypt, 'compare').mockResolvedValueOnce(false);
 
     // When then
-    await expect(authService.signIn(email, 'wrongpassword')).rejects.toThrow(
+    await expect(authService.logIn(email, 'wrongpassword')).rejects.toThrow(
       UnauthorizedException,
     );
   });
@@ -65,7 +67,7 @@ describe('AuthService', () => {
   it('should return true when user with given email exists', async () => {
     // Given
     const email = 'test@example.com';
-    jest.spyOn(userService, 'findUserByEmail').mockResolvedValueOnce(mockUser);
+    jest.spyOn(userService, 'existsByEmail').mockResolvedValueOnce(true);
 
     // When
     const result: VerifyResponseDto = await authService.verify(email);
@@ -77,12 +79,46 @@ describe('AuthService', () => {
   it('should return false when user with given email does not exist', async () => {
     // Given
     const email = 'nonexistent@example.com';
-    jest.spyOn(userService, 'findUserByEmail').mockResolvedValueOnce(undefined);
+    jest.spyOn(userService, 'existsByEmail').mockResolvedValueOnce(false);
 
     // When
     const result: VerifyResponseDto = await authService.verify(email);
 
     // Then
     expect(result.isExistingAccount).toBe(false);
+  });
+
+  it('should throw BadRequestException if email is not provided', async () => {
+    await expect(authService.verify('')).rejects.toThrow(BadRequestException);
+  });
+
+  it('should throw BadRequestException if user with given email already exists', async () => {
+    const email = 'test@example.com';
+    jest.spyOn(userService, 'existsByEmail').mockResolvedValueOnce(true);
+
+    await expect(authService.signIn(email, 'test', 'password')).rejects.toThrow(
+      BadRequestException,
+    );
+  });
+
+  it('should create a new user and return it if user with given email does not exist', async () => {
+    const email = 'test@example.com';
+    const id = 'e047bda3-b2fa-418b-adb6-c0cfaad7b18b';
+    jest.spyOn(userService, 'existsByEmail').mockResolvedValueOnce(false);
+    jest.spyOn(userService, 'createUser').mockResolvedValueOnce({
+      id,
+      email,
+      pseudo: 'test',
+      password: 'hashPass',
+    });
+
+    const result = await authService.signIn(email, 'test', 'password');
+
+    expect(result).toEqual({
+      id: 'e047bda3-b2fa-418b-adb6-c0cfaad7b18b',
+      email,
+      pseudo: 'test',
+      password: 'hashPass',
+    });
   });
 });
