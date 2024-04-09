@@ -1,3 +1,4 @@
+-- Active: 1705399760488@@127.0.0.1@5432@maseance
 INSERT INTO theater (id_theater, name, address, image_path, booking_path) VALUES
     ('20cd8109-efaf-472b-aa58-9e38afcdde36', 'C2L Saint-Germain', '25-27-29, rue du Vieux-Marche 78100 Saint-Germain-en-Laye', '/c2l-saint-germain', 'https://www.ugc.fr'),
     ('2b61a248-35cb-42cb-8f43-7b5b6fc50cc5', 'C2L Poissy', '112 Rue du Général de Gaulle 78300 Poissy', '/c2l-poissy', 'https://www.ugc.fr'),
@@ -21,15 +22,31 @@ INSERT INTO theater (id_theater, name, address, image_path, booking_path) VALUES
     ('66e71fa7-3a3a-4377-b0e8-12f36a2cc89b', 'Le Cosmos', '3, rue des Francs-Bourgeois 67000 Strasbourg', '/cosmos-strasbourg', 'https://cinema-cosmos.eu'),
     ('07b79e0e-e6e7-45b0-84b3-7e39f0b4844d', 'Star Saint-Exupery', '18, rue du 22-Novembre 67000 Strasbourg', '/star-st-ex-strasbourg', 'https://www.cinema-star.com/');
 
+CREATE EXTENSION IF NOT EXISTS pgcrypto;
 
 INSERT INTO "user" (id_user, pseudo, email, password) VALUES
-    ('8e0c9f29-3d07-4c61-a2ff-5e405e7c40c3', 'Rachel', 'rachel_green@example.com', 'password1'),
-    ('7b00a15d-7c78-44fc-a4b8-b920b88f4a41', 'Ross', 'ross_geller@example.com', 'password2'),
-    ('3658f41e-4d56-4980-93a9-621eab2ad3b2', 'Monica', 'monica_geller@example.com', 'password3'),
-    ('f1cf04f7-6c9b-48b7-91a4-fa4df90bfdbf', 'Chandler', 'chandler_bing@example.com', 'password4'),
-    ('4d747e8b-e950-4e63-8203-4f5ff7b67211', 'Joey', 'joey_tribbiani@example.com', 'password5'),
-    ('e6dcf476-1182-48d8-87e4-f9678fc8cfc4', 'Phoebe', 'phoebe_buffay@example.com', 'password6');
+    ('8e0c9f29-3d07-4c61-a2ff-5e405e7c40c3', 'Rachel', 'rachel_green@example.com', crypt('password1', gen_salt('bf'))),
+    ('7b00a15d-7c78-44fc-a4b8-b920b88f4a41', 'Ross', 'ross_geller@example.com', crypt('password2', gen_salt('bf'))),
+    ('3658f41e-4d56-4980-93a9-621eab2ad3b2', 'Monica', 'monica_geller@example.com', crypt('password3', gen_salt('bf'))),
+    ('f1cf04f7-6c9b-48b7-91a4-fa4df90bfdbf', 'Chandler', 'chandler_bing@example.com', crypt('password4', gen_salt('bf'))),
+    ('4d747e8b-e950-4e63-8203-4f5ff7b67211', 'Joey', 'joey_tribbiani@example.com', crypt('password5', gen_salt('bf'))),
+    ('e6dcf476-1182-48d8-87e4-f9678fc8cfc4', 'Phoebe', 'phoebe_buffay@example.com', crypt('password6', gen_salt('bf')));
 
+INSERT INTO movie (id_movie, id_tmdb) VALUES
+    ('0d1aef7d-d76a-4d14-9461-d6470b7c4de9', '1011985'),
+    ('aaae3e9d-16f3-4924-b1de-4bb227d52949', '693134'),
+    ('f1545604-573e-4d46-9644-0279b1967e2c', '437342'),
+    ('b90c3b68-cb48-47bb-bbe9-66b2b594e9f2', '1125311'),
+    ('8b5d52f4-c87d-4be8-a4ec-0e55a82b176b', '1192209'),
+    ('d31a8dc9-1c72-4a77-b6ef-1e94af9c14a1', '967847'),
+    ('c81e81b2-5f8b-47dc-b015-96a2aa53c81b', '957304'),
+    ('be641c4f-36c0-4be2-b9d4-b7eef79767b4', '998022'),
+    ('e0af423d-d6c4-4cb7-aa2c-28e4c00d66d3', '976584'),
+    ('e143963a-6228-4459-96a6-fa2dd2207a24', '1026227'),
+    ('077d8717-75a3-468e-aeab-3a3e0e54b57b', '975773'),
+    ('3be8cb2a-4f19-458a-a1ad-4f1da23ac87c', '959395'),
+    ('77e425f7-6a53-477a-bb70-d3e104b8edc8', '964877'),
+    ('ac6199a2-4a8d-43bb-9ac6-3023f7d93da7', '1010639');
 
 INSERT INTO movie_watchlist (id_user, id_movie) VALUES
     ('8e0c9f29-3d07-4c61-a2ff-5e405e7c40c3', '0d1aef7d-d76a-4d14-9461-d6470b7c4de9'),
@@ -66,22 +83,6 @@ INSERT INTO screening (id_screening, date, id_movie, id_theater) VALUES
     ('8cf004a1-82ad-47af-aa4a-b2c891e3deae', '2024-04-18 19:00:00', 'aaae3e9d-16f3-4924-b1de-4bb227d52949', 'c7264c48-1551-479d-8af1-d7b1ff568ad9'),
     ('1578a609-eb4f-4a8f-bb34-99d8d8f35f69', '2024-04-19 21:00:00', 'f1545604-573e-4d46-9644-0279b1967e2c', '66e71fa7-3a3a-4377-b0e8-12f36a2cc89b'),
     ('59d20ee3-7eb2-4dd7-bf32-47d421666f31', '2024-04-19 23:30:00', 'b90c3b68-cb48-47bb-bbe9-66b2b594e9f2', '07b79e0e-e6e7-45b0-84b3-7e39f0b4844d');
-
-INSERT INTO movie_watchlist (id_user, id_movie) VALUES
-    ('8e0c9f29-3d07-4c61-a2ff-5e405e7c40c3', 'd9df9b94-9f67-41e5-8891-0bb7dbcc0d14'),
-    ('8e0c9f29-3d07-4c61-a2ff-5e405e7c40c3', 'f50ec679-12bb-4d9b-b96c-1b9b9e9442d9'),
-    ('7b00a15d-7c78-44fc-a4b8-b920b88f4a41', '22b992b3-4b1e-45b1-a10f-4e0cc139a214'),
-    ('7b00a15d-7c78-44fc-a4b8-b920b88f4a41', '01e87aa7-d94b-47e3-9b1d-305c5b810f1b'),
-    ('3658f41e-4d56-4980-93a9-621eab2ad3b2', '16ae89bc-ee10-4f95-853e-8dc832f3bb75'),
-    ('3658f41e-4d56-4980-93a9-621eab2ad3b2', '22b992b3-4b1e-45b1-a10f-4e0cc139a214'),
-    ('f1cf04f7-6c9b-48b7-91a4-fa4df90bfdbf', 'f50ec679-12bb-4d9b-b96c-1b9b9e9442d9'),
-    ('f1cf04f7-6c9b-48b7-91a4-fa4df90bfdbf', '01e87aa7-d94b-47e3-9b1d-305c5b810f1b'),
-    ('4d747e8b-e950-4e63-8203-4f5ff7b67211', '22b992b3-4b1e-45b1-a10f-4e0cc139a214'),
-    ('4d747e8b-e950-4e63-8203-4f5ff7b67211', '16ae89bc-ee10-4f95-853e-8dc832f3bb75'),
-    ('e6dcf476-1182-48d8-87e4-f9678fc8cfc4', '22b992b3-4b1e-45b1-a10f-4e0cc139a214'),
-    ('e6dcf476-1182-48d8-87e4-f9678fc8cfc4', 'f50ec679-12bb-4d9b-b96c-1b9b9e9442d9');
-
-
 
 INSERT INTO theater_bookmark (id_user, id_theater) VALUES
     ('8e0c9f29-3d07-4c61-a2ff-5e405e7c40c3', 'cf21273d-1c18-47c6-a3cf-6868e19e826f'),
