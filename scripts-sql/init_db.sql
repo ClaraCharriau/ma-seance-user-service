@@ -41,20 +41,20 @@ CREATE TABLE screening (
 CREATE TABLE agenda (
     id_user UUID,
     id_screening UUID,
-    CONSTRAINT fk_user FOREIGN KEY (id_user) REFERENCES "user" (id_user),
+    CONSTRAINT fk_user FOREIGN KEY (id_user) REFERENCES "user" (id_user) ON DELETE CASCADE,
     CONSTRAINT fk_screening FOREIGN KEY (id_screening) REFERENCES screening (id_screening)
 );
 
 CREATE TABLE movie_watchlist (
     id_user UUID,
     id_movie UUID,
-    CONSTRAINT fk_user FOREIGN KEY (id_user) REFERENCES "user" (id_user),
+    CONSTRAINT fk_user FOREIGN KEY (id_user) REFERENCES "user" (id_user) ON DELETE CASCADE,
     CONSTRAINT fk_movie FOREIGN KEY (id_movie) REFERENCES movie (id_movie)
 );
 
 CREATE TABLE theater_bookmark (
     id_user UUID,
     id_theater UUID,
-    CONSTRAINT fk_user FOREIGN KEY (id_user) REFERENCES "user" (id_user),
+    CONSTRAINT fk_user FOREIGN KEY (id_user) REFERENCES "user" (id_user) ON DELETE CASCADE,
     CONSTRAINT fk_theater FOREIGN KEY (id_theater) REFERENCES theater (id_theater)
 );

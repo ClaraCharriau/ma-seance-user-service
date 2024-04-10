@@ -1,4 +1,5 @@
-import { Entity, PrimaryGeneratedColumn, Column } from 'typeorm';
+import { Entity, PrimaryGeneratedColumn, Column, ManyToMany } from 'typeorm';
+import { User } from './user.entity';
 
 @Entity()
 export class Theater {
@@ -16,4 +17,7 @@ export class Theater {
 
   @Column({ length: 255, name: 'booking_path' })
   bookingPath: string;
+
+  @ManyToMany(() => User, (user) => user.favoriteTheaters)
+  bookmarkedBy: User[];
 }

@@ -4,11 +4,11 @@ import {
   UnauthorizedException,
 } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
+import { UpdateUserDto } from 'src/user/dto/updateUser.dto';
+import { UserDto } from 'src/user/dto/user.dto';
 import { UserService } from '../user/user.service';
 import { TokenDto } from './dto/token.dto';
 import { VerifyResponseDto } from './dto/verifyResponse.dto';
-import { User } from 'src/user/entities/user.entity';
-import { UpdateUserDto } from 'src/user/dto/updateUser.dto';
 const bcrypt = require('bcrypt');
 
 /**
@@ -23,8 +23,10 @@ export class AuthService {
   ) {}
 
   async logIn(email: string, pass: string): Promise<TokenDto> {
+    // Find if user exists by email
     const user = await this.userService.findUserByEmail(email);
 
+    // Check password
     if (await this.isPasswordValid(pass, user?.password)) {
       // Generate our JWT from user id and email
       const payload = { userId: user.id, email };
@@ -35,7 +37,8 @@ export class AuthService {
     throw new UnauthorizedException();
   }
 
-  async signIn(email: string, pseudo: string, password: string): Promise<User> {
+  async signIn(email: string, pseudo: string, password: string): Promise<UserDto> {
+    // Check if user exists by email before create
     const isExistingUser = await this.userService.existsByEmail(email);
     if (isExistingUser) {
       throw new BadRequestException(
@@ -54,10 +57,14 @@ export class AuthService {
   async updateUser(
     id: string,
     updateUserDto: UpdateUserDto,
-  ): Promise<User> {
+  ): Promise<UserDto> {
     await this.userService.updateUser(id, updateUserDto);
 
     return await this.userService.findUserById(id);
+  }
+
+  async deleteUser(id: string): Promise<void> {
+    await this.userService.deleteUser(id);
   }
 
   private async isPasswordValid(

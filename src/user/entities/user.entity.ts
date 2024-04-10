@@ -26,12 +26,16 @@ export class User {
   @Column()
   password: string;
 
-  @ManyToMany(() => Movie)
-  @JoinTable()
+  @ManyToMany(() => Movie, (movie) => movie.watchlistedBy, { cascade: true })
+  @JoinTable({
+    name: 'movie_watchlist',
+  })
   watchlist: Movie[];
 
   @ManyToMany(() => Screening)
-  @JoinTable()
+  @JoinTable({
+    name: 'agenda',
+  })
   agenda: Screening[];
 
   @ManyToMany(() => Theater)

@@ -1,11 +1,11 @@
 import { NotFoundException } from '@nestjs/common';
 import { Test, TestingModule } from '@nestjs/testing';
 import { getRepositoryToken } from '@nestjs/typeorm';
-import { Repository, UpdateResult } from 'typeorm';
+import { UpdateUserDto } from 'src/user/dto/updateUser.dto';
+import { Repository } from 'typeorm';
 import { User } from '../../src/user/entities/user.entity';
 import { UserService } from '../../src/user/user.service';
 import * as mockUser from '../mocks/user_200.json';
-import { UpdateUserDto } from 'src/user/dto/updateUser.dto';
 
 describe('UserService', () => {
   let service: UserService;
@@ -21,7 +21,8 @@ describe('UserService', () => {
           useValue: {
             existsBy: jest.fn(),
             save: jest.fn(),
-            update: jest.fn()
+            update: jest.fn(),
+            delete: jest.fn()
           },
         },
       ],
@@ -86,13 +87,22 @@ describe('UserService', () => {
       email,
       pseudo,
       password: expect.any(String),
+      watchlist: [],
+      agenda: [],
+      favoriteTheaters: []
+    };
+    const expectedUserDto = {
+      id: expect.any(String),
+      email,
+      pseudo,
+      password: expect.any(String)
     };
 
     jest.spyOn(userRepository, 'save').mockResolvedValue(newUser);
 
     const result = await service.createUser(email, pseudo, password);
 
-    expect(result).toEqual(newUser);
+    expect(result).toEqual(expectedUserDto);
   });
 
   it('should update user if user exists', async () => {
@@ -160,5 +170,49 @@ describe('UserService', () => {
     await expect(service.findUserById(id)).rejects.toThrow(
       NotFoundException,
     );
+  });
+
+  it('should return true if user with given id exists', async () => {
+    const email = '123';
+    jest.spyOn(userRepository, 'existsBy').mockResolvedValue(true);
+
+    const result = await service.existsById(email);
+
+    expect(result).toBe(true);
+  });
+
+  it('should return false if user with given id does not exist', async () => {
+    const email = '123';
+    jest.spyOn(userRepository, 'existsBy').mockResolvedValue(false);
+
+    const result = await service.existsById(email);
+
+    expect(result).toBe(false);
+  });
+
+  it('should delete user if user exists', async () => {
+    // Given
+    const id = '1';
+    jest.spyOn(userRepository, 'existsBy').mockResolvedValue(true);
+    jest.spyOn(userRepository, 'delete').mockImplementation();
+
+    // When
+    await service.deleteUser(id);
+
+    // Then
+    expect(userRepository.existsBy).toHaveBeenCalledWith({id});
+    expect(userRepository.delete).toHaveBeenCalledWith(id);
+  });
+
+  it('should throw on update user if user does not exists', async () => {
+    // Given
+    const id = '1';
+    jest.spyOn(userRepository, 'existsBy').mockResolvedValue(false);
+
+    // When
+    await expect(service.deleteUser(id)).rejects.toThrow(NotFoundException);
+
+    // Then
+    expect(userRepository.existsBy).toHaveBeenCalledWith({id});
   });
 });
