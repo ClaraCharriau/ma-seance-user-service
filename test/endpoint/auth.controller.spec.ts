@@ -28,7 +28,8 @@ describe('AuthController tests', () => {
             verify: jest
               .fn()
               .mockImplementation(() => Promise.resolve(mockVerifyResponse)),
-            updateUser: jest.fn()
+            updateUser: jest.fn(),
+            deleteUser: jest.fn()
           },
         },
       ],
@@ -100,5 +101,17 @@ describe('AuthController tests', () => {
 
     // Then
     expect(result).toEqual(mockUser);
+  });
+
+  it('should delete an user', async () => {
+    // Given
+    const id = '1';
+    jest.spyOn(authService, 'deleteUser');
+
+    // When
+    const result = await authController.deleteUser(id);
+
+    // Then
+    expect(authService.deleteUser).toHaveBeenCalled();
   });
 });

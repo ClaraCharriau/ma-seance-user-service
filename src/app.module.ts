@@ -6,6 +6,9 @@ import { User } from 'src/user/entities/user.entity';
 import { DataSource } from 'typeorm';
 import { AuthModule } from './auth/auth.module';
 import { UserModule } from './user/user.module';
+import { Movie } from './user/entities/movie.entity';
+import { Screening } from './user/entities/screening.entity';
+import { Theater } from './user/entities/theater.entity';
 
 dotenv.config({ path: '.env.local' });
 
@@ -21,8 +24,8 @@ dotenv.config({ path: '.env.local' });
       username: process.env.DB_USERNAME,
       password: process.env.DB_PASSWORD,
       database: process.env.DB_NAME,
-      entities: [User],
-      synchronize: process.env.ENV === 'dev',
+      entities: [User, Movie, Screening, Theater],
+      synchronize: false,
     }),
   ],
   controllers: [],

@@ -20,10 +20,12 @@ describe('AuthService', () => {
           provide: UserService,
           useValue: {
             findUserByEmail: jest.fn(),
+            findUserById: jest.fn(),
             existsByEmail: jest.fn(),
+            existsById: jest.fn(),
             createUser: jest.fn(),
             updateUser: jest.fn(),
-            findUserById: jest.fn()
+            deleteUser: jest.fn(),
           },
         },
         {
@@ -96,15 +98,18 @@ describe('AuthService', () => {
   });
 
   it('should throw BadRequestException if user with given email already exists', async () => {
+    // Given
     const email = 'test@example.com';
     jest.spyOn(userService, 'existsByEmail').mockResolvedValueOnce(true);
 
+    // When
     await expect(authService.signIn(email, 'test', 'password')).rejects.toThrow(
       BadRequestException,
     );
   });
 
   it('should create a new user and return it if user with given email does not exist', async () => {
+    // Given
     const email = 'test@example.com';
     const id = 'e047bda3-b2fa-418b-adb6-c0cfaad7b18b';
     jest.spyOn(userService, 'existsByEmail').mockResolvedValueOnce(false);
@@ -115,8 +120,10 @@ describe('AuthService', () => {
       password: 'hashPass',
     });
 
+    // When
     const result = await authService.signIn(email, 'test', 'password');
 
+    // Then
     expect(result).toEqual({
       id: 'e047bda3-b2fa-418b-adb6-c0cfaad7b18b',
       email,
@@ -126,6 +133,7 @@ describe('AuthService', () => {
   });
 
   it('should update an user', async () => {
+    // Given
     const email = 'test@example.com';
     const id = 'e047bda3-b2fa-418b-adb6-c0cfaad7b18b';
     const updateUserDto: UpdateUserDto = {
@@ -133,19 +141,20 @@ describe('AuthService', () => {
       email: 'test@example.com',
       pseudo: 'newPseudo',
       password: 'newPassword',
-    }
+    };
     const updatedUser: UpdateUserDto = {
       id,
       email: 'test@example.com',
       pseudo: 'newPseudo',
       password: 'hashPass',
-    }
+    };
     const updateUserSpy = jest.spyOn(userService, 'updateUser');
     jest.spyOn(userService, 'findUserById').mockResolvedValueOnce(updatedUser);
-    
 
+    // When
     const result = await authService.updateUser(id, updateUserDto);
 
+    // Then
     expect(result).toEqual({
       id: 'e047bda3-b2fa-418b-adb6-c0cfaad7b18b',
       email,
@@ -153,5 +162,17 @@ describe('AuthService', () => {
       password: 'hashPass',
     });
     expect(updateUserSpy).toHaveBeenCalled();
+  });
+
+  it('should delete an user if the user exists', async () => {
+    // Given
+    const id = 'e047bda3-b2fa-418b-adb6-c0cfaad7b18b';
+    const deleteUserSpy = jest.spyOn(userService, 'deleteUser');
+
+    // When
+    await authService.deleteUser(id);
+
+    // Then
+    expect(deleteUserSpy).toHaveBeenCalled();
   });
 });

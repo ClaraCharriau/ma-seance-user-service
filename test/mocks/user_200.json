@@ -2,5 +2,8 @@
   "id": "b7d10dc9-af37-4eb1-b67d-5fe347af5682",
   "pseudo": "monicaGeller",
   "email": "email@mail.com",
-  "password": "$2b$10$Xh.fhtFvRA12F2qMjbSbEe9YVZHLhNBW3CIOtKqEiOJbkldYO2L5q"
+  "password": "$2b$10$Xh.fhtFvRA12F2qMjbSbEe9YVZHLhNBW3CIOtKqEiOJbkldYO2L5q",
+  "watchlist": [],
+  "agenda": [],
+  "favoriteTheaters": []
 }

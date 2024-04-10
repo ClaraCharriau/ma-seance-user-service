@@ -1,8 +1,18 @@
-import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
+import {
+  Column,
+  Entity,
+  JoinTable,
+  ManyToMany,
+  OneToMany,
+  PrimaryGeneratedColumn,
+} from 'typeorm';
+import { Movie } from './movie.entity';
+import { Screening } from './screening.entity';
+import { Theater } from './theater.entity';
 
 @Entity()
 export class User {
-  @PrimaryGeneratedColumn('uuid', {name: 'id_user'})
+  @PrimaryGeneratedColumn('uuid', { name: 'id_user' })
   id: string;
 
   @Column({
@@ -10,9 +20,27 @@ export class User {
   })
   pseudo: string;
 
-  @Column()
+  @Column({ unique: true })
   email: string;
 
   @Column()
   password: string;
+
+  @ManyToMany(() => Movie, (movie) => movie.watchlistedBy, { cascade: true })
+  @JoinTable({
+    name: 'movie_watchlist',
+  })
+  watchlist: Movie[];
+
+  @ManyToMany(() => Screening)
+  @JoinTable({
+    name: 'agenda',
+  })
+  agenda: Screening[];
+
+  @ManyToMany(() => Theater)
+  @JoinTable({
+    name: 'theater_bookmark',
+  })
+  favoriteTheaters: Theater[];
 }

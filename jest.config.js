@@ -9,6 +9,7 @@ module.exports = {
   coveragePathIgnorePatterns: [
     'node_modules',
     '.module.ts',
+    '.entity.ts',
     '<rootDir>/src/main.ts',
     '.json',
     '.*__snapshots__/.*',
