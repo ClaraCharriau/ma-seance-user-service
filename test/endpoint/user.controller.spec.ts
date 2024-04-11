@@ -33,6 +33,7 @@ describe('UserController', () => {
           provide: FavTheaterService,
           useValue: {
             getUserFavTheaters: jest.fn(),
+            addTheaterToUserFavorites: jest.fn()
           },
         },
       ],
@@ -147,5 +148,21 @@ describe('UserController', () => {
 
     // Then
     expect(result).toEqual(favTheaters);
+  });
+
+  it('should return 200 when successfully add theater in user favorite theaters', async () => {
+    // Given
+    const userId = '123';
+    const theaterId = '456';
+    jest.spyOn(favTheaterService, 'addTheaterToUserFavorites').mockResolvedValueOnce();
+
+    // When
+    await userController.addTheaterInUserFavorites(userId, theaterId);
+
+    // Then
+    expect(favTheaterService.addTheaterToUserFavorites).toHaveBeenCalledWith(
+      userId,
+      theaterId,
+    );
   });
 });
