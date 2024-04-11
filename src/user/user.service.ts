@@ -50,7 +50,7 @@ export class UserService {
       password: hashedPassword,
       watchlist: [],
       agenda: [],
-      favoriteTheaters: []
+      favoriteTheaters: [],
     };
 
     await this.usersRepository.save(newUser);
@@ -71,7 +71,6 @@ export class UserService {
     if (!(await this.usersRepository.existsBy({ id }))) {
       throw new NotFoundException(`No user with id : ${id} was found`);
     }
-    
     await this.usersRepository.delete(id);
   }
 

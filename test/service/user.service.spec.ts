@@ -8,7 +8,7 @@ import { UserService } from '../../src/user/user.service';
 import * as mockUser from '../mocks/user_200.json';
 
 describe('UserService', () => {
-  let service: UserService;
+  let userService: UserService;
   let userRepository: Repository<User>;
 
   beforeEach(async () => {
@@ -28,13 +28,14 @@ describe('UserService', () => {
       ],
     }).compile();
 
-    service = module.get<UserService>(UserService);
+    userService = module.get<UserService>(UserService);
     userRepository = module.get<Repository<User>>(getRepositoryToken(User));
   });
 
   it('should be defined', () => {
-    expect(service).toBeDefined();
+    expect(userService).toBeDefined();
   });
+
   it('should return a user when user with given email exists', async () => {
     const email = 'email@mail.com';
     const user = {
@@ -46,7 +47,7 @@ describe('UserService', () => {
     jest.spyOn(userRepository, 'existsBy').mockResolvedValueOnce(true);
     jest.spyOn(userRepository, 'findOneBy').mockResolvedValueOnce(mockUser);
 
-    const result = await service.findUserByEmail(email);
+    const result = await userService.findUserByEmail(email);
 
     expect(result).toEqual(user);
   });
@@ -55,7 +56,7 @@ describe('UserService', () => {
     const email = 'nonexistent@example.com';
     jest.spyOn(userRepository, 'existsBy').mockResolvedValueOnce(false);
 
-    await expect(service.findUserByEmail(email)).rejects.toThrow(
+    await expect(userService.findUserByEmail(email)).rejects.toThrow(
       NotFoundException,
     );
   });
@@ -64,7 +65,7 @@ describe('UserService', () => {
     const email = 'test@example.com';
     jest.spyOn(userRepository, 'existsBy').mockResolvedValue(true);
 
-    const result = await service.existsByEmail(email);
+    const result = await userService.existsByEmail(email);
 
     expect(result).toBe(true);
   });
@@ -73,7 +74,7 @@ describe('UserService', () => {
     const email = 'test@example.com';
     jest.spyOn(userRepository, 'existsBy').mockResolvedValue(false);
 
-    const result = await service.existsByEmail(email);
+    const result = await userService.existsByEmail(email);
 
     expect(result).toBe(false);
   });
@@ -100,7 +101,7 @@ describe('UserService', () => {
 
     jest.spyOn(userRepository, 'save').mockResolvedValue(newUser);
 
-    const result = await service.createUser(email, pseudo, password);
+    const result = await userService.createUser(email, pseudo, password);
 
     expect(result).toEqual(expectedUserDto);
   });
@@ -118,9 +119,9 @@ describe('UserService', () => {
 
     jest.spyOn(userRepository, 'existsBy').mockResolvedValue(true);
     jest.spyOn(userRepository, 'update').mockResolvedValue({} as any);
-    jest.spyOn(service as any, 'hashPassword').mockResolvedValue(hashedPassword);
+    jest.spyOn(userService as any, 'hashPassword').mockResolvedValue(hashedPassword);
 
-    await service.updateUser(id, updateUserDto);
+    await userService.updateUser(id, updateUserDto);
 
     expect(userRepository.existsBy).toHaveBeenCalledWith({ id });
     expect(userRepository.update).toHaveBeenCalledWith(id, {
@@ -142,7 +143,7 @@ describe('UserService', () => {
 
     jest.spyOn(userRepository, 'existsBy').mockResolvedValue(false);
 
-    await expect(service.updateUser(id, updateUserDto)).rejects.toThrow(NotFoundException);
+    await expect(userService.updateUser(id, updateUserDto)).rejects.toThrow(NotFoundException);
 
     expect(userRepository.existsBy).toHaveBeenCalledWith({ id });
   });
@@ -158,7 +159,7 @@ describe('UserService', () => {
     jest.spyOn(userRepository, 'existsBy').mockResolvedValueOnce(true);
     jest.spyOn(userRepository, 'findOneBy').mockResolvedValueOnce(mockUser);
 
-    const result = await service.findUserById(id);
+    const result = await userService.findUserById(id);
 
     expect(result).toEqual(user);
   });
@@ -167,7 +168,7 @@ describe('UserService', () => {
     const id = 'b7d10dc9-af37-4eb1-b67d-5fe347af5682';
     jest.spyOn(userRepository, 'existsBy').mockResolvedValueOnce(false);
 
-    await expect(service.findUserById(id)).rejects.toThrow(
+    await expect(userService.findUserById(id)).rejects.toThrow(
       NotFoundException,
     );
   });
@@ -176,7 +177,7 @@ describe('UserService', () => {
     const email = '123';
     jest.spyOn(userRepository, 'existsBy').mockResolvedValue(true);
 
-    const result = await service.existsById(email);
+    const result = await userService.existsById(email);
 
     expect(result).toBe(true);
   });
@@ -185,7 +186,7 @@ describe('UserService', () => {
     const email = '123';
     jest.spyOn(userRepository, 'existsBy').mockResolvedValue(false);
 
-    const result = await service.existsById(email);
+    const result = await userService.existsById(email);
 
     expect(result).toBe(false);
   });
@@ -197,7 +198,7 @@ describe('UserService', () => {
     jest.spyOn(userRepository, 'delete').mockImplementation();
 
     // When
-    await service.deleteUser(id);
+    await userService.deleteUser(id);
 
     // Then
     expect(userRepository.existsBy).toHaveBeenCalledWith({id});
@@ -210,7 +211,7 @@ describe('UserService', () => {
     jest.spyOn(userRepository, 'existsBy').mockResolvedValue(false);
 
     // When
-    await expect(service.deleteUser(id)).rejects.toThrow(NotFoundException);
+    await expect(userService.deleteUser(id)).rejects.toThrow(NotFoundException);
 
     // Then
     expect(userRepository.existsBy).toHaveBeenCalledWith({id});
