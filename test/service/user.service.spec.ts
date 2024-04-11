@@ -3,7 +3,7 @@ import { Test, TestingModule } from '@nestjs/testing';
 import { getRepositoryToken } from '@nestjs/typeorm';
 import { UpdateUserDto } from 'src/user/dto/updateUser.dto';
 import { Repository } from 'typeorm';
-import { User } from '../../src/user/entities/user.entity';
+import { User } from '../../src/user/entity/user.entity';
 import { UserService } from '../../src/user/user.service';
 import * as mockUser from '../mocks/user_200.json';
 
