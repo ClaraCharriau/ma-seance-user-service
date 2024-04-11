@@ -24,7 +24,7 @@ export class AuthGuard implements CanActivate {
     // Verify if the token exists and extract it
     const token = this.extractTokenFromHeader(request);
     if (!token) {
-      console.error('Token not found');
+      console.error('Error: Token not found');
       throw new UnauthorizedException();
     }
 
@@ -38,7 +38,7 @@ export class AuthGuard implements CanActivate {
       request['user'] = payload;
 
       if (!this.verifyUserIdAreEquals(request, payload.userId)) {
-        console.error('User id is not equal to user id in token');
+        console.error('Error: User id is not equal to user id in token');
         throw new UnauthorizedException();
       }
     } catch {
