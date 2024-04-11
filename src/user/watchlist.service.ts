@@ -10,8 +10,6 @@ export class WatchlistService {
   constructor(
     @InjectRepository(Movie)
     private moviesRepository: Repository<Movie>,
-    @InjectRepository(User)
-    private usersRepository: Repository<User>,
   ) {}
 
   /**
@@ -22,10 +20,6 @@ export class WatchlistService {
    * WHERE user.id_user = :userId
    */
   async getUserWatchlistMovies(userId: string): Promise<MovieDto[]> {
-    if (!(await this.usersRepository.existsBy({ id: userId }))) {
-      throw new NotFoundException(`No user with id : ${userId} was found`);
-    }
-
     const movies: Movie[] = await this.moviesRepository
     .createQueryBuilder('movie')
     .innerJoin('movie.watchlistedBy', 'user')
