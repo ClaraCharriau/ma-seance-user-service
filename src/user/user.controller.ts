@@ -5,6 +5,7 @@ import {
   HttpCode,
   HttpStatus,
   Param,
+  Post,
   UseGuards,
 } from '@nestjs/common';
 import { WatchlistService } from './watchlist.service';
@@ -46,5 +47,23 @@ export class UserController {
     @Param('movieId') movieId: string,
   ): Promise<void> {
     return this.watchlistService.removeMovieFromWatchlist(userId, movieId);
+  }
+
+  /**
+   * POST /users/{userId}/watchlist-movies/{movieId}
+   * will receive the user's and movie's id by param
+   * and will delete the list of user's favorite movies
+   *
+   * @param userId
+   * @param movieId
+   */
+  @UseGuards(AuthGuard)
+  @HttpCode(HttpStatus.OK)
+  @Post('/:userId/watchlist-movies/:movieId')
+  addMovieInUserWatchlist(
+    @Param('userId') userId: string,
+    @Param('movieId') movieId: string,
+  ): Promise<void> {
+    return this.watchlistService.addMovieInWatchlist(userId, movieId);
   }
 }

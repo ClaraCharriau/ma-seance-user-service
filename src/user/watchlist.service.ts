@@ -1,4 +1,8 @@
-import { Injectable, NotFoundException } from '@nestjs/common';
+import {
+  BadRequestException,
+  Injectable,
+  NotFoundException,
+} from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { User } from './entity/user.entity';
 import { Repository } from 'typeorm';
@@ -13,6 +17,14 @@ export class WatchlistService {
     @InjectRepository(User)
     private usersRepository: Repository<User>,
   ) {}
+
+  async getMovieById(movieId: string): Promise<Movie> {
+    const movie = await this.moviesRepository.findOneBy({ id: movieId });
+    if (!movie) {
+      throw new NotFoundException(`Movie with id : ${movieId} not found`);
+    }
+    return movie;
+  }
 
   /**
    * SELECT *
@@ -36,19 +48,44 @@ export class WatchlistService {
     const user = await this.usersRepository.findOneBy({ id: userId });
 
     // Verify if movie exist
-    const movie = await this.moviesRepository.findOneBy({ id: movieId });
-    if (!movie) {
-      throw new NotFoundException(`Movie with id : ${movieId} not found`);
+    const movie = await this.getMovieById(movieId);
+
+    // Check if already exists in watchlist
+    if (!(await this.existsInUserWatchlist(userId, movieId))) {
+      throw new NotFoundException(
+        `Movie with id : ${movieId} not found in user's watchlist`,
+      );
     }
 
-    if (this.existsInUserWatchlist(userId, movieId)) {
-      // Delete association between user and movie
-      await this.moviesRepository
-        .createQueryBuilder()
-        .relation(User, 'watchlist')
-        .of(user)
-        .remove(movie);
+    // Delete association between user and movie
+    await this.moviesRepository
+      .createQueryBuilder()
+      .relation(User, 'watchlist')
+      .of(user)
+      .remove(movie);
+  }
+
+  async addMovieInWatchlist(userId: string, movieId: string) {
+    // Get user
+    const user = await this.usersRepository.findOneBy({ id: userId });
+
+    // Verify if movie exist
+    const movie = await this.getMovieById(movieId);
+
+    // Check if already exists in watchlist
+    if (await this.existsInUserWatchlist(userId, movieId)) {
+      console.error(
+        `Movie with id : ${movieId} already exists in user watchlist`,
+      );
+      return;
     }
+
+    // Delete association between user and movie
+    await this.moviesRepository
+      .createQueryBuilder()
+      .relation(User, 'watchlist')
+      .of(user)
+      .add(movie);
   }
 
   private async existsInUserWatchlist(userId: string, movieId: string) {
@@ -59,11 +96,6 @@ export class WatchlistService {
       .andWhere('movie.id_movie = :movieId', { movieId })
       .getOne();
 
-    if (!userMovie) {
-      throw new NotFoundException(
-        `Movie with id : ${movieId} not found in user's watchlist`,
-      );
-    }
-    return true;
+    return !!userMovie;
   }
 }
