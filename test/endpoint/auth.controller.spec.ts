@@ -109,7 +109,7 @@ describe('AuthController tests', () => {
     jest.spyOn(authService, 'deleteUser');
 
     // When
-    const result = await authController.deleteUser(id);
+    await authController.deleteUser(id);
 
     // Then
     expect(authService.deleteUser).toHaveBeenCalled();

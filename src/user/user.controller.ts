@@ -1,5 +1,6 @@
 import {
   Controller,
+  Delete,
   Get,
   HttpCode,
   HttpStatus,
@@ -15,7 +16,7 @@ export class UserController {
   constructor(private watchlistService: WatchlistService) {}
 
   /**
-   * GET /users/{id}/fav-movies
+   * GET /users/{id}/watchlist-movies
    * will receive the user's id by param
    * and will return a list of user's favorite movies
    *
@@ -24,8 +25,26 @@ export class UserController {
    */
   @UseGuards(AuthGuard)
   @HttpCode(HttpStatus.OK)
-  @Get('/:id/watchlist-movies')
-  getUserWatchlistMovies(@Param('id') userId: string): Promise<MovieDto[]> {
+  @Get('/:userId/watchlist-movies')
+  getUserWatchlistMovies(@Param('userId') userId: string): Promise<MovieDto[]> {
     return this.watchlistService.getUserWatchlistMovies(userId);
+  }
+
+  /**
+   * DELETE /users/{userId}/watchlist-movies/{movieId}
+   * will receive the user's and movie's id by param
+   * and will delete the list of user's favorite movies
+   *
+   * @param userId
+   * @param movieId
+   */
+  @UseGuards(AuthGuard)
+  @HttpCode(HttpStatus.NO_CONTENT)
+  @Delete('/:userId/watchlist-movies/:movieId')
+  deleteMovieFromUserWatchlist(
+    @Param('userId') userId: string,
+    @Param('movieId') movieId: string,
+  ): Promise<void> {
+    return this.watchlistService.removeMovieFromWatchlist(userId, movieId);
   }
 }

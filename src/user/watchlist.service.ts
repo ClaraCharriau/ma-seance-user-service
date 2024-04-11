@@ -10,6 +10,8 @@ export class WatchlistService {
   constructor(
     @InjectRepository(Movie)
     private moviesRepository: Repository<Movie>,
+    @InjectRepository(User)
+    private usersRepository: Repository<User>,
   ) {}
 
   /**
@@ -21,11 +23,47 @@ export class WatchlistService {
    */
   async getUserWatchlistMovies(userId: string): Promise<MovieDto[]> {
     const movies: Movie[] = await this.moviesRepository
-    .createQueryBuilder('movie')
-    .innerJoin('movie.watchlistedBy', 'user')
-    .where('user.id_user = :userId', { userId })
-    .getMany();
+      .createQueryBuilder('movie')
+      .innerJoin('movie.watchlistedBy', 'user')
+      .where('user.id_user = :userId', { userId })
+      .getMany();
 
     return MovieDto.fromMovies(movies);
+  }
+
+  async removeMovieFromWatchlist(userId: string, movieId: string) {
+    // Get user
+    const user = await this.usersRepository.findOneBy({ id: userId });
+
+    // Verify if movie exist
+    const movie = await this.moviesRepository.findOneBy({ id: movieId });
+    if (!movie) {
+      throw new NotFoundException(`Movie with id : ${movieId} not found`);
+    }
+
+    if (this.existsInUserWatchlist(userId, movieId)) {
+      // Delete association between user and movie
+      await this.moviesRepository
+        .createQueryBuilder()
+        .relation(User, 'watchlist')
+        .of(user)
+        .remove(movie);
+    }
+  }
+
+  private async existsInUserWatchlist(userId: string, movieId: string) {
+    const userMovie = await this.moviesRepository
+      .createQueryBuilder('movie')
+      .innerJoinAndSelect('movie.watchlistedBy', 'user')
+      .where('user.id_user = :userId', { userId })
+      .andWhere('movie.id_movie = :movieId', { movieId })
+      .getOne();
+
+    if (!userMovie) {
+      throw new NotFoundException(
+        `Movie with id : ${movieId} not found in user's watchlist`,
+      );
+    }
+    return true;
   }
 }

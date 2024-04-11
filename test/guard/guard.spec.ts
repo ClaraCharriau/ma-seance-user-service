@@ -47,7 +47,7 @@ describe('AuthGuard', () => {
             authorization: `Bearer ${mockToken}`,
           },
           params: {
-            id: mockUserId,
+            userId: mockUserId,
           },
         }),
       }),
@@ -84,7 +84,7 @@ describe('AuthGuard', () => {
             authorization: `Bearer ${mockToken}`,
           },
           params: {
-            id: mockUserId,
+            userId: mockUserId,
           },
         }),
       }),

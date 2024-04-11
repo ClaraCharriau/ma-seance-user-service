@@ -23,6 +23,7 @@ describe('UserController', () => {
           provide: WatchlistService,
           useValue: {
             getUserWatchlistMovies: jest.fn(),
+            removeMovieFromWatchlist: jest.fn(),
           },
         },
       ],
@@ -63,22 +64,18 @@ describe('UserController', () => {
     expect(result).toEqual(watchlist);
   });
 
-  // it('should return 403 when user id is not equals to userId in token', async () => {
-  //   // Given
-  //   const userId = '6d747e8b-e950-4e63-8203-4f5ff7b67211';
-  //   jest
-  //     .spyOn(watchlistService, 'getUserWatchlistMovies')
-  //     .mockRejectedValueOnce(mockUserIdResponse400);
+  it('should return 200 when successfully delete movie in user watchlist', async () => {
+    // Given
+    const userId = '123';
+    const movieId = '456';
+    jest
+      .spyOn(watchlistService, 'removeMovieFromWatchlist')
+      .mockResolvedValueOnce();
 
-  //   // When
-  //   try {
-  //     await userController.getUserWatchlistMovies(userId);
-  //   } catch (error) {
-  //     // Then
-  //     expect(error.message).toBe(
-  //       `No user with id : ${userId} was found`,
-  //     );
-  //     expect(error.statusCode).toBe(403);
-  //   }
-  // });
+    // When
+    await userController.deleteMovieFromUserWatchlist(userId, movieId);
+
+    // Then
+    expect(watchlistService.removeMovieFromWatchlist).toHaveBeenCalled();
+  });
 });

@@ -54,6 +54,6 @@ export class AuthGuard implements CanActivate {
     request: Request,
     userIdFromToken: string,
   ): boolean {
-    return request.params.id === userIdFromToken;
+    return request.params.userId === userIdFromToken;
   }
 }
