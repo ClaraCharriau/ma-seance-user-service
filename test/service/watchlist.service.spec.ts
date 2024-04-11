@@ -4,10 +4,15 @@ import { Repository } from 'typeorm';
 import { Movie } from '../../src/user/entity/movie.entity';
 import { getRepositoryToken } from '@nestjs/typeorm';
 import * as mockWatchlist from '../mocks/watchlist_200.json';
+import * as mockUser from '../mocks/user_200.json';
+import * as mockMovie from '../mocks/movie_200.json';
+import { User } from '../../src/user/entity/user.entity';
+import { NotFoundException } from '@nestjs/common';
 
 describe('WatchlistService', () => {
   let watchlistService: WatchlistService;
   let moviesRepository: Repository<Movie>;
+  let usersRepository: Repository<User>;
 
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
@@ -18,8 +23,17 @@ describe('WatchlistService', () => {
           useClass: Repository,
           useValue: {
             createQuerybuilder: jest.fn(),
+            findOneBy: jest.fn()
           },
         },
+        {
+          provide: getRepositoryToken(User),
+          useClass: Repository,
+          useValue: {
+            createQuerybuilder: jest.fn(),
+            findOneBy: jest.fn()
+          },
+        }
       ],
     }).compile();
 
@@ -55,5 +69,17 @@ describe('WatchlistService', () => {
 
     // Then
     expect(result).toEqual(watchlist);
+  });
+
+  it('should remove a movie from watchlist if it exists', async () => {
+
+  });
+
+  it('should throw NotFoundException when movie does not exist', async () => {
+
+  });
+
+  it('should throw NotFoundException when movie is not in user watchlist', async () => {
+
   });
 });
