@@ -2,14 +2,16 @@ import { Test, TestingModule } from '@nestjs/testing';
 import { UserController } from '../../src/user/user.controller';
 import { WatchlistService } from '../../src/user/watchlist.service';
 import * as mockWatchlist from '../mocks/watchlist_200.json';
-import * as mockUserIdResponse400 from '../mocks/unknown_user_id_400.json';
+import * as mockFavTheaters from '../mocks/favorite-theaters_200.json';
 import { AuthGuard } from '../../src/guard/auth.gard';
 import { CanActivate } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
+import { FavTheaterService } from '../../src/user/fav-theater.service';
 
 describe('UserController', () => {
   let userController: UserController;
   let watchlistService: WatchlistService;
+  let favTheaterService: FavTheaterService;
 
   beforeEach(async () => {
     const mockGuard: CanActivate = { canActivate: jest.fn(() => true) };
@@ -24,7 +26,13 @@ describe('UserController', () => {
           useValue: {
             getUserWatchlistMovies: jest.fn(),
             removeMovieFromWatchlist: jest.fn(),
-            addMovieInWatchlist: jest.fn()
+            addMovieInWatchlist: jest.fn(),
+          },
+        },
+        {
+          provide: FavTheaterService,
+          useValue: {
+            getUserFavTheaters: jest.fn(),
           },
         },
       ],
@@ -35,6 +43,7 @@ describe('UserController', () => {
 
     userController = module.get<UserController>(UserController);
     watchlistService = module.get<WatchlistService>(WatchlistService);
+    favTheaterService = module.get<FavTheaterService>(FavTheaterService);
   });
 
   it('should be defined', () => {
@@ -84,14 +93,59 @@ describe('UserController', () => {
     // Given
     const userId = '123';
     const movieId = '456';
-    jest
-      .spyOn(watchlistService, 'addMovieInWatchlist')
-      .mockResolvedValueOnce();
+    jest.spyOn(watchlistService, 'addMovieInWatchlist').mockResolvedValueOnce();
 
     // When
     await userController.addMovieInUserWatchlist(userId, movieId);
 
     // Then
-    expect(watchlistService.addMovieInWatchlist).toHaveBeenCalledWith(userId, movieId);
+    expect(watchlistService.addMovieInWatchlist).toHaveBeenCalledWith(
+      userId,
+      movieId,
+    );
+  });
+
+  it('should return 200 when successfully get user favorite theaters', async () => {
+    // Given
+    const userId = '123';
+    const favTheaters = [
+      {
+        id: '43819f64-bf0a-4ed3-807e-9ab7e05e98ed',
+        name: 'MK2 Bibliothèque',
+        address: '128-162 avenue de France 75013 Paris',
+        imagePath: '/mk2-bibliotheque-paris',
+        bookingPath: 'https://www.mk2.com/salle/mk2-bibliotheque',
+      },
+      {
+        id: '321b3e62-0768-43ff-90aa-92d6d2c3e8a0',
+        name: 'UGC Ciné Cité Strasbourg Etoile',
+        address: '25, avenue du Rhin 67100 Strasbourg',
+        imagePath: '/ugc-etoile-strasbourg',
+        bookingPath: 'https://www.ugc.fr',
+      },
+      {
+        id: '07b79e0e-e6e7-45b0-84b3-7e39f0b4844d',
+        name: 'Star Saint-Exupery',
+        address: '18, rue du 22-Novembre 67000 Strasbourg',
+        imagePath: '/star-st-ex-strasbourg',
+        bookingPath: 'https://www.cinema-star.com/',
+      },
+      {
+        id: '66e71fa7-3a3a-4377-b0e8-12f36a2cc89b',
+        name: 'Le Cosmos',
+        address: '3, rue des Francs-Bourgeois 67000 Strasbourg',
+        imagePath: '/cosmos-strasbourg',
+        bookingPath: 'https://cinema-cosmos.eu',
+      },
+    ];
+    jest
+      .spyOn(favTheaterService, 'getUserFavTheaters')
+      .mockResolvedValueOnce(mockFavTheaters);
+
+    // When
+    const result = await userController.getUserFavoriteTheaters(userId);
+
+    // Then
+    expect(result).toEqual(favTheaters);
   });
 });

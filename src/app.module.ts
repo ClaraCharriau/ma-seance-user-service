@@ -5,11 +5,10 @@ import * as dotenv from 'dotenv';
 import { User } from 'src/user/entity/user.entity';
 import { DataSource } from 'typeorm';
 import { AuthModule } from './auth/auth.module';
-import { UserModule } from './user/user.module';
 import { Movie } from './user/entity/movie.entity';
 import { Screening } from './user/entity/screening.entity';
 import { Theater } from './user/entity/theater.entity';
-import { WatchlistService } from './user/watchlist.service';
+import { UserModule } from './user/user.module';
 
 dotenv.config({ path: '.env.local' });
 
@@ -30,7 +29,7 @@ dotenv.config({ path: '.env.local' });
     }),
   ],
   controllers: [],
-  providers: [WatchlistService],
+  providers: [],
 })
 export class AppModule {
   constructor(private dataSource: DataSource) {}

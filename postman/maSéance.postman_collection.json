@@ -7,10 +7,10 @@
 	},
 	"item": [
 		{
-			"name": "auth",
+			"name": "Authentication",
 			"item": [
 				{
-					"name": "log in - 200",
+					"name": "log in - 200 - generate token",
 					"request": {
 						"method": "POST",
 						"header": [],
@@ -232,6 +232,238 @@
 						}
 					},
 					"response": []
+				},
+				{
+					"name": "update User - 200",
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"id\": \"e6dcf476-1182-48d8-87e4-f9678fc8cfc4\",\n    \"email\": \"phoebe_buffay@example.com\",\n    \"pseudo\": \"Phoebe\",\n    \"password\": \"newPass\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:3030/maseance/api/v1/auth/registrations/e6dcf476-1182-48d8-87e4-f9678fc8cfc4",
+							"host": [
+								"localhost"
+							],
+							"port": "3030",
+							"path": [
+								"maseance",
+								"api",
+								"v1",
+								"auth",
+								"registrations",
+								"e6dcf476-1182-48d8-87e4-f9678fc8cfc4"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "update User - 400",
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:3030/maseance/api/v1/auth/registrations/1",
+							"host": [
+								"localhost"
+							],
+							"port": "3030",
+							"path": [
+								"maseance",
+								"api",
+								"v1",
+								"auth",
+								"registrations",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "delete account - 204",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "localhost:3030/maseance/api/v1/auth/registrations/e6dcf476-1182-48d8-87e4-f9678fc8cfc4",
+							"host": [
+								"localhost"
+							],
+							"port": "3030",
+							"path": [
+								"maseance",
+								"api",
+								"v1",
+								"auth",
+								"registrations",
+								"e6dcf476-1182-48d8-87e4-f9678fc8cfc4"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "delete account - 400",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "localhost:3030/maseance/api/v1/auth/registrations/21d80f36-45b8-410f-a973-1e6e44415e4a",
+							"host": [
+								"localhost"
+							],
+							"port": "3030",
+							"path": [
+								"maseance",
+								"api",
+								"v1",
+								"auth",
+								"registrations",
+								"21d80f36-45b8-410f-a973-1e6e44415e4a"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Users",
+			"item": [
+				{
+					"name": "watchlist - 200",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base-url}}v1/users/{{joey-user-id}}/watchlist-movies",
+							"host": [
+								"{{base-url}}v1"
+							],
+							"path": [
+								"users",
+								"{{joey-user-id}}",
+								"watchlist-movies"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "watchlist - 401",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base-url}}v1/users/7b00a15d-7c78-44fc-a4b8-b920b88f4a41/watchlist-movies",
+							"host": [
+								"{{base-url}}v1"
+							],
+							"path": [
+								"users",
+								"7b00a15d-7c78-44fc-a4b8-b920b88f4a41",
+								"watchlist-movies"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "watchlist - 204",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{base-url}}v1/users/{{joey-user-id}}/watchlist-movies/e143963a-6228-4459-96a6-fa2dd2207a24",
+							"host": [
+								"{{base-url}}v1"
+							],
+							"path": [
+								"users",
+								"{{joey-user-id}}",
+								"watchlist-movies",
+								"e143963a-6228-4459-96a6-fa2dd2207a24"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "watchlist - 201",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{base-url}}v1/users/{{joey-user-id}}/watchlist-movies/e143963a-6228-4459-96a6-fa2dd2207a24",
+							"host": [
+								"{{base-url}}v1"
+							],
+							"path": [
+								"users",
+								"{{joey-user-id}}",
+								"watchlist-movies",
+								"e143963a-6228-4459-96a6-fa2dd2207a24"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "fav theaters - 200",
+					"request": {
+						"method": "GET",
+						"header": []
+					},
+					"response": []
+				},
+				{
+					"name": "fav theaters - 401",
+					"request": {
+						"method": "GET",
+						"header": []
+					},
+					"response": []
 				}
 			]
 		}
@@ -256,6 +488,22 @@
 					""
 				]
 			}
+		}
+	],
+	"variable": [
+		{
+			"key": "base-url",
+			"value": "localhost:3030/maseance/api/"
+		},
+		{
+			"key": "token",
+			"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI0ZDc0N2U4Yi1lOTUwLTRlNjMtODIwMy00ZjVmZjdiNjcyMTEiLCJlbWFpbCI6ImpvZXlfdHJpYmJpYW5pQGV4YW1wbGUuY29tIiwiaWF0IjoxNzEyODM4OTYxLCJleHAiOjE3MTI4NTMzNjF9.GNzRVR4YK65gM_t0XnU7cOmPM14zMpCXFjIN2ax99PI",
+			"type": "string"
+		},
+		{
+			"key": "joey-user-id",
+			"value": "4d747e8b-e950-4e63-8203-4f5ff7b67211",
+			"type": "string"
 		}
 	]
 }

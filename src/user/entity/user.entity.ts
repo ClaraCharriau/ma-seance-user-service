@@ -45,9 +45,19 @@ export class User {
   })
   agenda: Screening[];
 
-  @ManyToMany(() => Theater)
+  @ManyToMany(() => Theater, (theater) => theater.bookmarkedBy, {
+    cascade: true,
+  })
   @JoinTable({
     name: 'theater_bookmark',
+    joinColumn: {
+      name: 'id_user',
+      referencedColumnName: 'id',
+    },
+    inverseJoinColumn: {
+      name: 'id_theater',
+      referencedColumnName: 'id',
+    },
   })
   favoriteTheaters: Theater[];
 }
