@@ -3,7 +3,6 @@ import {
   Entity,
   JoinTable,
   ManyToMany,
-  OneToMany,
   PrimaryGeneratedColumn,
 } from 'typeorm';
 import { Movie } from './movie.entity';
@@ -29,6 +28,14 @@ export class User {
   @ManyToMany(() => Movie, (movie) => movie.watchlistedBy, { cascade: true })
   @JoinTable({
     name: 'movie_watchlist',
+    joinColumn: {
+      name: 'id_user',
+      referencedColumnName: 'id',
+    },
+    inverseJoinColumn: {
+      name: 'id_movie',
+      referencedColumnName: 'id',
+    },
   })
   watchlist: Movie[];
 

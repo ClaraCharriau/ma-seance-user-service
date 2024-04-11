@@ -3,7 +3,7 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { UpdateUserDto } from './dto/updateUser.dto';
 import { UserDto } from './dto/user.dto';
-import { User } from './entities/user.entity';
+import { User } from './entity/user.entity';
 const bcrypt = require('bcrypt');
 
 @Injectable()
@@ -50,7 +50,7 @@ export class UserService {
       password: hashedPassword,
       watchlist: [],
       agenda: [],
-      favoriteTheaters: []
+      favoriteTheaters: [],
     };
 
     await this.usersRepository.save(newUser);
@@ -71,7 +71,6 @@ export class UserService {
     if (!(await this.usersRepository.existsBy({ id }))) {
       throw new NotFoundException(`No user with id : ${id} was found`);
     }
-    
     await this.usersRepository.delete(id);
   }
 
