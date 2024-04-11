@@ -24,6 +24,7 @@ describe('UserController', () => {
           useValue: {
             getUserWatchlistMovies: jest.fn(),
             removeMovieFromWatchlist: jest.fn(),
+            addMovieInWatchlist: jest.fn()
           },
         },
       ],
@@ -77,5 +78,20 @@ describe('UserController', () => {
 
     // Then
     expect(watchlistService.removeMovieFromWatchlist).toHaveBeenCalled();
+  });
+
+  it('should return 200 when successfully add movie in user watchlist', async () => {
+    // Given
+    const userId = '123';
+    const movieId = '456';
+    jest
+      .spyOn(watchlistService, 'addMovieInWatchlist')
+      .mockResolvedValueOnce();
+
+    // When
+    await userController.addMovieInUserWatchlist(userId, movieId);
+
+    // Then
+    expect(watchlistService.addMovieInWatchlist).toHaveBeenCalledWith(userId, movieId);
   });
 });

@@ -82,4 +82,8 @@ describe('WatchlistService', () => {
   it('should throw NotFoundException when movie is not in user watchlist', async () => {
 
   });
+
+  it('should add a movie from watchlist if it dont exists in user watchlist', async () => {
+
+  });
 });
