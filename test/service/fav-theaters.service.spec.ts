@@ -4,10 +4,12 @@ import { getRepositoryToken } from '@nestjs/typeorm';
 import { Theater } from '../../src/user/entity/theater.entity';
 import { Repository } from 'typeorm';
 import * as mockFavTheaters from '../mocks/favorite-theaters_200.json';
+import { User } from '../../src/user/entity/user.entity';
 
 describe('FavTheaterService', () => {
   let favTheaterService: FavTheaterService;
   let theaterRepository: Repository<Theater>;
+  let usersRepository: Repository<User>;
 
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
@@ -18,6 +20,11 @@ describe('FavTheaterService', () => {
           useClass: Repository,
           useValue: {},
         },
+        {
+          provide: getRepositoryToken(User),
+          useClass: Repository,
+          useValue: {},
+        },
       ],
     }).compile();
 
@@ -25,9 +32,10 @@ describe('FavTheaterService', () => {
     theaterRepository = module.get<Repository<Theater>>(
       getRepositoryToken(Theater),
     );
+    usersRepository = module.get<Repository<User>>(getRepositoryToken(User));
   });
 
-  it('should return the user watchlist when user with valid id', async () => {
+  it('should return the user favorite theaters when user have a valid id', async () => {
     // Given
     const id = 'b7d10dc9-af37-4eb1-b67d-5fe347af5682';
     jest.spyOn(theaterRepository, 'createQueryBuilder').mockReturnValue({

@@ -18,14 +18,6 @@ export class WatchlistService {
     private usersRepository: Repository<User>,
   ) {}
 
-  async getMovieById(movieId: string): Promise<Movie> {
-    const movie = await this.moviesRepository.findOneBy({ id: movieId });
-    if (!movie) {
-      throw new NotFoundException(`Movie with id : ${movieId} not found`);
-    }
-    return movie;
-  }
-
   /**
    * SELECT *
    * FROM movie
@@ -47,7 +39,7 @@ export class WatchlistService {
     // Get user
     const user = await this.usersRepository.findOneBy({ id: userId });
 
-    // Verify if movie exist
+    // Verify if movie exists
     const movie = await this.getMovieById(movieId);
 
     // Check if already exists in watchlist
@@ -80,7 +72,7 @@ export class WatchlistService {
       return;
     }
 
-    // Delete association between user and movie
+    // Add association between user and movie
     await this.moviesRepository
       .createQueryBuilder()
       .relation(User, 'watchlist')
@@ -97,5 +89,13 @@ export class WatchlistService {
       .getOne();
 
     return !!userMovie;
+  }
+
+  private async getMovieById(movieId: string): Promise<Movie> {
+    const movie = await this.moviesRepository.findOneBy({ id: movieId });
+    if (!movie) {
+      throw new NotFoundException(`Movie with id : ${movieId} not found`);
+    }
+    return movie;
   }
 }
