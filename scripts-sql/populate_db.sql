@@ -18,8 +18,8 @@ INSERT INTO theater (id_theater, name, address, image_path, booking_path) VALUES
     ('12fd4f09-8f7b-4809-a6fb-674e1d698ad1', 'Pathé Angers', '1, avenue des Droits de l''Homme 49000 Angers', '/pathe-angers', 'https://www.pathe.fr/cinemas/cinema-pathe-angers'),
     ('08b0b2a6-fb0e-4c05-95c5-6751861e46b3', 'Les 400 Coups', '12, rue jeanne Moreau 49000 Angers', '/400-coups-angers', 'https://www.les400coups.org'),
     ('321b3e62-0768-43ff-90aa-92d6d2c3e8a0', 'UGC Ciné Cité Strasbourg Etoile', '25, avenue du Rhin 67100 Strasbourg', '/ugc-etoile-strasbourg', 'https://www.ugc.fr'),
-    ('c7264c48-1551-479d-8af1-d7b1ff568ad9', 'Mégarex', 'route du Rhin-za du taubenhof 67500 Haguenau', '/megarex-haguenau', 'https://www.megarex.fr/pages/a-laffiche-3.html'),
-    ('66e71fa7-3a3a-4377-b0e8-12f36a2cc89b', 'Le Cosmos', '3, rue des Francs-Bourgeois 67000 Strasbourg', '/cosmos-strasbourg', 'https://cinema-cosmos.eu'),
+    ('c7264c48-1551-479d-8af1-d7b1ff568ad9', 'Mégarex Haguenau', 'route du Rhin-za du taubenhof 67500 Haguenau', '/megarex-haguenau', 'https://www.megarex.fr/pages/a-laffiche-3.html'),
+    ('66e71fa7-3a3a-4377-b0e8-12f36a2cc89b', 'Le Cosmos Strasbourg', '3, rue des Francs-Bourgeois 67000 Strasbourg', '/cosmos-strasbourg', 'https://cinema-cosmos.eu'),
     ('07b79e0e-e6e7-45b0-84b3-7e39f0b4844d', 'Star Saint-Exupery', '18, rue du 22-Novembre 67000 Strasbourg', '/star-st-ex-strasbourg', 'https://www.cinema-star.com/');
 
 CREATE EXTENSION IF NOT EXISTS pgcrypto;

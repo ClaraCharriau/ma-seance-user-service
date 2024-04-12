@@ -37,7 +37,7 @@ export class FavTheaterService {
 
     // Verify if theater exists
     const theater = await this.getTheaterById(theaterId);
-  
+
     if (await this.existsInUserFavorites(userId, theaterId)) {
       console.error(
         `Theater with id : ${theaterId} already exists in user's favorite theaters`,
@@ -51,6 +51,27 @@ export class FavTheaterService {
       .relation(User, 'favoriteTheaters')
       .of(user)
       .add(theater);
+  }
+
+  async removeTheaterFromUserFavorites(userId: string, theaterId: string) {
+    // Get user
+    const user = await this.usersRepository.findOneBy({ id: userId });
+
+    // Verify if theater exists
+    const theater = await this.getTheaterById(theaterId);
+
+    if (!(await this.existsInUserFavorites(userId, theaterId))) {
+      throw new NotFoundException(
+        `Theater with id: ${theaterId} not found in user's with id: ${userId} favorites`,
+      );
+    }
+
+    // Delete association between user and theater
+    await this.theatersRepository
+      .createQueryBuilder()
+      .relation(User, 'favoriteTheaters')
+      .of(user)
+      .remove(theater);
   }
 
   private async getTheaterById(theaterId: string): Promise<Theater> {

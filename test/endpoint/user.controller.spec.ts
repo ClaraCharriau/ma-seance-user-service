@@ -33,7 +33,8 @@ describe('UserController', () => {
           provide: FavTheaterService,
           useValue: {
             getUserFavTheaters: jest.fn(),
-            addTheaterToUserFavorites: jest.fn()
+            addTheaterToUserFavorites: jest.fn(),
+            removeTheaterFromUserFavorites: jest.fn()
           },
         },
       ],
@@ -164,5 +165,20 @@ describe('UserController', () => {
       userId,
       theaterId,
     );
+  });
+
+  it('should return 200 when successfully delete theater in user favorite theaters', async () => {
+    // Given
+    const userId = '123';
+    const theaterId = '456';
+    jest
+      .spyOn(favTheaterService, 'removeTheaterFromUserFavorites')
+      .mockResolvedValueOnce();
+
+    // When
+    await userController.deleteTheaterFromUserFavorites(userId, theaterId);
+
+    // Then
+    expect(favTheaterService.removeTheaterFromUserFavorites).toHaveBeenCalled();
   });
 });
