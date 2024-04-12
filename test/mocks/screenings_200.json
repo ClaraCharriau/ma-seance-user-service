@@ -1,0 +1,62 @@
+[
+  {
+    "id": "07e4c502-741f-4455-b54a-890a2951c65d",
+    "date": "2024-04-10T16:00:00.000Z",
+    "movie": {
+      "id": "0d1aef7d-d76a-4d14-9461-d6470b7c4de9",
+      "tmdbId": "1011985"
+    },
+    "theater": {
+      "id": "20cd8109-efaf-472b-aa58-9e38afcdde36",
+      "name": "C2L Saint-Germain",
+      "address": "25-27-29, rue du Vieux-Marche 78100 Saint-Germain-en-Laye",
+      "imagePath": "/c2l-saint-germain",
+      "bookingPath": "https://www.ugc.fr"
+    }
+  },
+  {
+    "id": "9e1d4a7d-5b14-41d9-af63-8d4f032da07d",
+    "date": "2024-04-14T19:15:00.000Z",
+    "movie": {
+      "id": "be641c4f-36c0-4be2-b9d4-b7eef79767b4",
+      "tmdbId": "998022"
+    },
+    "theater": {
+      "id": "cf21273d-1c18-47c6-a3cf-6868e19e826f",
+      "name": "Elysées Lincoln",
+      "address": "14 Rue Lincoln 75008 Paris",
+      "imagePath": "/lincoln-paris",
+      "bookingPath": "https://www.lelincoln.com"
+    }
+  },
+  {
+    "id": "e44f24af-45a5-4c27-8629-279a1507c0de",
+    "date": "2024-04-16T20:45:00.000Z",
+    "movie": {
+      "id": "3be8cb2a-4f19-458a-a1ad-4f1da23ac87c",
+      "tmdbId": "959395"
+    },
+    "theater": {
+      "id": "36fe0edf-ef8c-46a3-a454-5743dbb6ad94",
+      "name": "Reflet Médicis",
+      "address": "3 Rue Champollion, 75005 Paris",
+      "imagePath": "/reflet-medicis-paris",
+      "bookingPath": "https://dulaccinemas.com/cinema/2950/reflet-medicis/seances"
+    }
+  },
+  {
+    "id": "01e87aa7-d94b-47e3-9b1d-305c5b810f1b",
+    "date": "2024-04-18T14:30:00.000Z",
+    "movie": {
+      "id": "0d1aef7d-d76a-4d14-9461-d6470b7c4de9",
+      "tmdbId": "1011985"
+    },
+    "theater": {
+      "id": "321b3e62-0768-43ff-90aa-92d6d2c3e8a0",
+      "name": "UGC Ciné Cité Strasbourg Etoile",
+      "address": "25, avenue du Rhin 67100 Strasbourg",
+      "imagePath": "/ugc-etoile-strasbourg",
+      "bookingPath": "https://www.ugc.fr"
+    }
+  }
+]

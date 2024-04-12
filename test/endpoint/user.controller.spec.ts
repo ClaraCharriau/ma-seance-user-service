@@ -7,11 +7,13 @@ import { AuthGuard } from '../../src/guard/auth.gard';
 import { CanActivate } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import { FavTheaterService } from '../../src/user/fav-theater.service';
+import { ScreeningService } from '../../src/user/screening.service';
 
 describe('UserController', () => {
   let userController: UserController;
   let watchlistService: WatchlistService;
   let favTheaterService: FavTheaterService;
+  let screeningService: ScreeningService;
 
   beforeEach(async () => {
     const mockGuard: CanActivate = { canActivate: jest.fn(() => true) };
@@ -34,7 +36,13 @@ describe('UserController', () => {
           useValue: {
             getUserFavTheaters: jest.fn(),
             addTheaterToUserFavorites: jest.fn(),
-            removeTheaterFromUserFavorites: jest.fn()
+            removeTheaterFromUserFavorites: jest.fn(),
+          },
+        },
+        {
+          provide: ScreeningService,
+          useValue: {
+            getUserAgenda: jest.fn(),
           },
         },
       ],
@@ -46,6 +54,7 @@ describe('UserController', () => {
     userController = module.get<UserController>(UserController);
     watchlistService = module.get<WatchlistService>(WatchlistService);
     favTheaterService = module.get<FavTheaterService>(FavTheaterService);
+    screeningService = module.get<ScreeningService>(ScreeningService);
   });
 
   it('should be defined', () => {
@@ -155,7 +164,9 @@ describe('UserController', () => {
     // Given
     const userId = '123';
     const theaterId = '456';
-    jest.spyOn(favTheaterService, 'addTheaterToUserFavorites').mockResolvedValueOnce();
+    jest
+      .spyOn(favTheaterService, 'addTheaterToUserFavorites')
+      .mockResolvedValueOnce();
 
     // When
     await userController.addTheaterInUserFavorites(userId, theaterId);
@@ -180,5 +191,51 @@ describe('UserController', () => {
 
     // Then
     expect(favTheaterService.removeTheaterFromUserFavorites).toHaveBeenCalled();
+  });
+
+  it('should return 200 when successfully get user agenda', async () => {
+    // Given
+    const userId = '123';
+    const screenings = [
+      {
+        id: '07e4c502-741f-4455-b54a-890a2951c65d',
+        date: new Date('2024-04-10T16:00:00.000Z'),
+        movie: {
+          id: '0d1aef7d-d76a-4d14-9461-d6470b7c4de9',
+          tmdbId: '1011985',
+        },
+        theater: {
+          id: '20cd8109-efaf-472b-aa58-9e38afcdde36',
+          name: 'C2L Saint-Germain',
+          address: '25-27-29, rue du Vieux-Marche 78100 Saint-Germain-en-Laye',
+          imagePath: '/c2l-saint-germain',
+          bookingPath: 'https://www.ugc.fr',
+        },
+      },
+      {
+        id: '9e1d4a7d-5b14-41d9-af63-8d4f032da07d',
+        date: new Date('2024-04-14T19:15:00.000Z'),
+        movie: {
+          id: 'be641c4f-36c0-4be2-b9d4-b7eef79767b4',
+          tmdbId: '998022',
+        },
+        theater: {
+          id: 'cf21273d-1c18-47c6-a3cf-6868e19e826f',
+          name: 'Elysées Lincoln',
+          address: '14 Rue Lincoln 75008 Paris',
+          imagePath: '/lincoln-paris',
+          bookingPath: 'https://www.lelincoln.com',
+        },
+      },
+    ];
+    jest
+      .spyOn(screeningService, 'getUserAgenda')
+      .mockResolvedValueOnce(screenings);
+
+    // When
+    const result = await userController.getUserAgenda(userId);
+
+    // Then
+    expect(result).toEqual(screenings);
   });
 });

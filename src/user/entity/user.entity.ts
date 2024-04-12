@@ -39,9 +39,19 @@ export class User {
   })
   watchlist: Movie[];
 
-  @ManyToMany(() => Screening)
+  @ManyToMany(() => Screening, (screening) => screening.scheduledBy, {
+    cascade: true,
+  })
   @JoinTable({
     name: 'agenda',
+    joinColumn: {
+      name: 'id_user',
+      referencedColumnName: 'id',
+    },
+    inverseJoinColumn: {
+      name: 'id_screening',
+      referencedColumnName: 'id',
+    },
   })
   agenda: Screening[];
 

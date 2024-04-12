@@ -8,10 +8,11 @@ import { Theater } from './entity/theater.entity';
 import { UserController } from './user.controller';
 import { WatchlistService } from './watchlist.service';
 import { FavTheaterService } from './fav-theater.service';
+import { ScreeningService } from './screening.service';
 
 @Module({
   imports: [TypeOrmModule.forFeature([User, Movie, Screening, Theater])],
-  providers: [UserService, WatchlistService, FavTheaterService],
+  providers: [UserService, WatchlistService, FavTheaterService, ScreeningService],
   exports: [TypeOrmModule, UserService],
   controllers: [UserController],
 })

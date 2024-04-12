@@ -9,6 +9,7 @@ import { Movie } from './user/entity/movie.entity';
 import { Screening } from './user/entity/screening.entity';
 import { Theater } from './user/entity/theater.entity';
 import { UserModule } from './user/user.module';
+import { ScreeningService } from './user/screening.service';
 
 dotenv.config({ path: '.env.local' });
 
