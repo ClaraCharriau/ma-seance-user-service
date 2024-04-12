@@ -44,6 +44,7 @@ describe('UserController', () => {
           useValue: {
             getUserAgenda: jest.fn(),
             addScreeningToUserAgenda: jest.fn(),
+            removeScreeningFromUserAgenda: jest.fn(),
           },
         },
       ],
@@ -253,5 +254,20 @@ describe('UserController', () => {
 
     // Then
     expect(screeningService.addScreeningToUserAgenda).toHaveBeenCalled();
+  });
+
+  it('should return 200 when successfully delete movie in user watchlist', async () => {
+    // Given
+    const userId = '123';
+    const screeningId = '456';
+    jest
+      .spyOn(screeningService, 'removeScreeningFromUserAgenda')
+      .mockResolvedValueOnce();
+
+    // When
+    await userController.deleteScreeningFromUserFavorites(userId, screeningId);
+
+    // Then
+    expect(screeningService.removeScreeningFromUserAgenda).toHaveBeenCalled();
   });
 });

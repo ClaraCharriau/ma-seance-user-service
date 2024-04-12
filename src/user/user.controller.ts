@@ -134,7 +134,7 @@ export class UserController {
   /**
    * GET /users/{userId}/screenings
    * will receive the user's id by param
-   * and will return the list of user's screenings
+   * and will return user's agenda
    *
    * @param userId
    */
@@ -148,7 +148,7 @@ export class UserController {
   /**
    * POST /users/{userId}/screenings/{screeningId}
    * will receive the user's and screening's id by param
-   * and will add the screening to the list of user's favorite screenings
+   * and will add the screening to user's agenda
    *
    * @param userId
    * @param screeningId
@@ -161,5 +161,26 @@ export class UserController {
     @Param('screeningId') screeningId: string,
   ): Promise<void> {
     return this.screeningService.addScreeningToUserAgenda(userId, screeningId);
+  }
+
+  /**
+   * DELETE /users/{userId}/screenings/{screeningId}
+   * will receive the user's and screening's id by param
+   * and will delete the screening in the user's agenda
+   *
+   * @param userId
+   * @param screeningId
+   */
+  @UseGuards(AuthGuard)
+  @HttpCode(HttpStatus.NO_CONTENT)
+  @Delete('/:userId/screenings/:screeningId')
+  deleteScreeningFromUserFavorites(
+    @Param('userId') userId: string,
+    @Param('screeningId') screeningId: string,
+  ): Promise<void> {
+    return this.screeningService.removeScreeningFromUserAgenda(
+      userId,
+      screeningId,
+    );
   }
 }
