@@ -43,6 +43,7 @@ describe('UserController', () => {
           provide: ScreeningService,
           useValue: {
             getUserAgenda: jest.fn(),
+            addScreeningToUserAgenda: jest.fn(),
           },
         },
       ],
@@ -237,5 +238,20 @@ describe('UserController', () => {
 
     // Then
     expect(result).toEqual(screenings);
+  });
+
+  it('should return 200 when successfully add new showtime to user agenda', async () => {
+    // Given
+    const userId = '123';
+    const screeningId = '07e4c502-741f-4455-b54a-890a2951c65d';
+    jest
+      .spyOn(screeningService, 'addScreeningToUserAgenda')
+      .mockResolvedValueOnce();
+
+    // When
+    const result = await userController.addToUserAgenda(userId, screeningId);
+
+    // Then
+    expect(screeningService.addScreeningToUserAgenda).toHaveBeenCalled();
   });
 });
