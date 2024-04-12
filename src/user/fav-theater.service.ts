@@ -45,7 +45,7 @@ export class FavTheaterService {
       return;
     }
 
-    // Add association between user and movie
+    // Add association between user and theater
     await this.theatersRepository
       .createQueryBuilder()
       .relation(User, 'favoriteTheaters')

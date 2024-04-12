@@ -144,4 +144,22 @@ export class UserController {
   getUserAgenda(@Param('userId') userId: string): Promise<ScreeningDto[]> {
     return this.screeningService.getUserAgenda(userId);
   }
+
+  /**
+   * POST /users/{userId}/screenings/{screeningId}
+   * will receive the user's and screening's id by param
+   * and will add the screening to the list of user's favorite screenings
+   *
+   * @param userId
+   * @param screeningId
+   */
+  @UseGuards(AuthGuard)
+  @HttpCode(HttpStatus.CREATED)
+  @Post('/:userId/screenings/:screeningId')
+  addToUserAgenda(
+    @Param('userId') userId: string,
+    @Param('screeningId') screeningId: string,
+  ): Promise<void> {
+    return this.screeningService.addScreeningToUserAgenda(userId, screeningId);
+  }
 }
