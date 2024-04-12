@@ -1,14 +1,7 @@
-import {
-  Column,
-  Entity,
-  JoinColumn,
-  ManyToMany,
-  ManyToOne,
-  PrimaryGeneratedColumn,
-} from 'typeorm';
-import { Movie } from './movie.entity';
-import { Theater } from './theater.entity';
-import { User } from './user.entity';
+import { Column, Entity, JoinColumn, ManyToMany, ManyToOne, PrimaryGeneratedColumn, Timestamp } from "typeorm";
+import { Movie } from "./movie.entity";
+import { Theater } from "./theater.entity";
+import { User } from "./user.entity";
 
 @Entity()
 export class Screening {
@@ -19,13 +12,13 @@ export class Screening {
   date: Date;
 
   @ManyToOne(() => Movie)
-  @JoinColumn({ name: 'id' })
+  @JoinColumn({ name: 'id_movie' })
   movie: Movie;
 
   @ManyToOne(() => Theater)
-  @JoinColumn({ name: 'id' })
+  @JoinColumn({ name: 'id_theater' })
   theater: Theater;
 
-  @ManyToMany(() => User, user => user.agenda)
+  @ManyToMany(() => User, (user) => user.agenda)
   scheduledBy: User[];
 }

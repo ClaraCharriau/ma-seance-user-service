@@ -13,12 +13,15 @@ import { AuthGuard } from '../guard/auth.gard';
 import { MovieDto } from './dto/movie.dto';
 import { TheaterDto } from './dto/theater.dto';
 import { FavTheaterService } from './fav-theater.service';
+import { ScreeningDto } from './dto/screening.dto';
+import { ScreeningService } from './screening.service';
 
 @Controller('v1/users')
 export class UserController {
   constructor(
     private watchlistService: WatchlistService,
     private favTheaterService: FavTheaterService,
+    private screeningService: ScreeningService,
   ) {}
 
   /**
@@ -122,6 +125,23 @@ export class UserController {
     @Param('userId') userId: string,
     @Param('theaterId') theaterId: string,
   ): Promise<void> {
-    return this.favTheaterService.removeTheaterFromUserFavorites(userId, theaterId);
+    return this.favTheaterService.removeTheaterFromUserFavorites(
+      userId,
+      theaterId,
+    );
+  }
+
+  /**
+   * GET /users/{userId}/screenings
+   * will receive the user's id by param
+   * and will return the list of user's screenings
+   *
+   * @param userId
+   */
+  @UseGuards(AuthGuard)
+  @HttpCode(HttpStatus.OK)
+  @Get('/:userId/screenings')
+  getUserAgenda(@Param('userId') userId: string): Promise<ScreeningDto[]> {
+    return this.screeningService.getUserAgenda(userId);
   }
 }

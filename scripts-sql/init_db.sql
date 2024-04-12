@@ -25,13 +25,13 @@ CREATE TABLE theater (
 );
 
 CREATE TABLE movie (
-    id_movie UUID PRIMARY KEY,
+    id_movie UUID PRIMARY KEY DEFAULT gen_random_uuid(),
     id_tmdb VARCHAR(12) UNIQUE NOT NULL
 );
 
 CREATE TABLE screening (
-    id_screening UUID PRIMARY KEY,
-    date DATE NOT NULL,
+    id_screening UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+    date TIMESTAMP NOT NULL,
     id_movie UUID,
     id_theater UUID,
     CONSTRAINT fk_movie FOREIGN KEY (id_movie) REFERENCES movie (id_movie),
