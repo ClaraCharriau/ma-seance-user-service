@@ -106,4 +106,22 @@ export class UserController {
   ): Promise<void> {
     return this.favTheaterService.addTheaterToUserFavorites(userId, theaterId);
   }
+
+  /**
+   * DELETE /users/{userId}/favorite-theaters/{theaterId}
+   * will receive the user's and theater's id by param
+   * and will delete the list of user's favorite theaters
+   *
+   * @param userId
+   * @param theaterId
+   */
+  @UseGuards(AuthGuard)
+  @HttpCode(HttpStatus.NO_CONTENT)
+  @Delete('/:userId/favorite-theaters/:theaterId')
+  deleteTheaterFromUserFavorites(
+    @Param('userId') userId: string,
+    @Param('theaterId') theaterId: string,
+  ): Promise<void> {
+    return this.favTheaterService.removeTheaterFromUserFavorites(userId, theaterId);
+  }
 }

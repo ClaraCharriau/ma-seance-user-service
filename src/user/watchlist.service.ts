@@ -45,7 +45,7 @@ export class WatchlistService {
     // Check if already exists in watchlist
     if (!(await this.existsInUserWatchlist(userId, movieId))) {
       throw new NotFoundException(
-        `Movie with id : ${movieId} not found in user's watchlist`,
+        `Movie with id : ${movieId} not found in user's with id: ${userId} watchlist`,
       );
     }
 
