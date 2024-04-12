@@ -55,10 +55,35 @@ export class ScreeningService {
       .add(screening);
   }
 
+  async removeScreeningFromUserAgenda(userId: string, screeningId: string) {
+    // Get user
+    const user = await this.usersRepository.findOneBy({ id: userId });
+
+    // Verify if screening exists
+    const screening = await this.getScreeningById(screeningId);
+
+    if (!(await this.existsInUserAgenda(userId, screeningId))) {
+      throw new NotFoundException(
+        `Screening with id: ${screeningId} not found in user's with id: ${userId} agenda`,
+      );
+    }
+
+    // Delete association between user and theater
+    await this.screeningsRepository
+      .createQueryBuilder()
+      .relation(User, 'agenda')
+      .of(user)
+      .remove(screening);
+  }
+
   private async getScreeningById(screeningId: string): Promise<Screening> {
-    const screening = await this.screeningsRepository.findOneBy({ id: screeningId });
+    const screening = await this.screeningsRepository.findOneBy({
+      id: screeningId,
+    });
     if (!screening) {
-      throw new NotFoundException(`Screening with id : ${screeningId} not found`);
+      throw new NotFoundException(
+        `Screening with id : ${screeningId} not found`,
+      );
     }
     return screening;
   }
