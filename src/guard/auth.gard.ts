@@ -37,7 +37,7 @@ export class AuthGuard implements CanActivate {
       // so that we can access it in our route handlers
       request['user'] = payload;
 
-      if (!this.verifyUserIdAreEquals(request, payload.userId)) {
+      if (!this.verifyUserIdAreEquals(request, payload.user.id)) {
         console.error('Error: User id is not equal to user id in token');
         throw new UnauthorizedException();
       }
