@@ -5,6 +5,11 @@ import { AuthGuard } from '../../src/guard/auth.gard';
 
 describe('AuthGuard', () => {
   let guard: AuthGuard;
+  const mockUser = {
+    id: '123',
+    pseudo: 'Jane',
+    email: 'test@mail.com',
+  };
 
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
@@ -33,12 +38,13 @@ describe('AuthGuard', () => {
     };
 
     // Then
-    await expect(guard.canActivate(mockExecutionContext as any)).rejects.toThrow(UnauthorizedException);
+    await expect(
+      guard.canActivate(mockExecutionContext as any),
+    ).rejects.toThrow(UnauthorizedException);
   });
 
-  it('should throw Unauthorized Exception if user id from token and user IDs does not match', async () => {
+  it('should throw Unauthorized Exception if user id from token and user ids does not match', async () => {
     // Given
-    const mockUserId = '123';
     const mockToken = 'validToken';
     const mockExecutionContext = {
       switchToHttp: () => ({
@@ -47,13 +53,15 @@ describe('AuthGuard', () => {
             authorization: `Bearer ${mockToken}`,
           },
           params: {
-            userId: mockUserId,
+            userId: "123",
           },
         }),
       }),
     };
     const mockPayload = {
-      userId: '456',
+      id: '1',
+      pseudo: 'Jane',
+      email: 'test@mail.com',
     };
     const jwtService = {
       verifyAsync: jest.fn().mockResolvedValue(mockPayload),
@@ -68,12 +76,14 @@ describe('AuthGuard', () => {
       ],
     }).compile();
     const guard = module.get<AuthGuard>(AuthGuard);
-    
+
     // Then
-    await expect(guard.canActivate(mockExecutionContext as any)).rejects.toThrow(UnauthorizedException);
+    await expect(
+      guard.canActivate(mockExecutionContext as any),
+    ).rejects.toThrow(UnauthorizedException);
   });
-  
-  it('should return true if token is provided and user IDs match', async () => {
+
+  it('should return true if token is provided and user ids match', async () => {
     // Given
     const mockUserId = '123';
     const mockToken = 'validToken';
@@ -90,7 +100,7 @@ describe('AuthGuard', () => {
       }),
     };
     const mockPayload = {
-      userId: mockUserId,
+      user: mockUser
     };
     const jwtService = {
       verifyAsync: jest.fn().mockResolvedValue(mockPayload),
@@ -108,7 +118,7 @@ describe('AuthGuard', () => {
 
     // When
     const result = await guard.canActivate(mockExecutionContext as any);
-  
+
     // Then
     expect(result).toBe(true);
   });

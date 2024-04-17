@@ -28,8 +28,8 @@ export class AuthService {
 
     // Check password
     if (await this.isPasswordValid(pass, user?.password)) {
-      // Generate our JWT from user id and email
-      const payload = { userId: user.id, email };
+      // Generate our JWT with user's informations
+      const payload = { user };
       return {
         access_token: await this.jwtService.signAsync(payload),
       };
