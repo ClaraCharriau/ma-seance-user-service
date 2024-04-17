@@ -2,9 +2,12 @@ import { Test, TestingModule } from '@nestjs/testing';
 import { AuthController } from '../../src/auth/auth.controller';
 import { AuthService } from '../../src/auth/auth.service';
 import { VerifyResponseDto } from 'src/auth/dto/verifyResponse.dto';
-import { SignInDto } from 'src/auth/dto/signIn.dto';
+import { SignInDto } from '../../src/auth/dto/signIn.dto';
 import * as mockUser from '../mocks/user_200.json';
-import { UpdateUserDto } from 'src/user/dto/updateUser.dto';
+import { UpdateUserDto } from '../../src/user/dto/updateUser.dto';
+import { AuthGuard } from '../../src/guard/auth.gard';
+import { CanActivate } from '@nestjs/common';
+import { JwtService } from '@nestjs/jwt';
 
 describe('AuthController tests', () => {
   let authController: AuthController;
@@ -15,9 +18,13 @@ describe('AuthController tests', () => {
   };
 
   beforeEach(async () => {
+    const mockGuard: CanActivate = { canActivate: jest.fn(() => true) };
+
     const module: TestingModule = await Test.createTestingModule({
       controllers: [AuthController],
       providers: [
+        AuthGuard,
+        JwtService,
         {
           provide: AuthService,
           useValue: {
@@ -29,11 +36,14 @@ describe('AuthController tests', () => {
               .fn()
               .mockImplementation(() => Promise.resolve(mockVerifyResponse)),
             updateUser: jest.fn(),
-            deleteUser: jest.fn()
+            deleteUser: jest.fn(),
           },
         },
       ],
-    }).compile();
+    })
+      .overrideGuard(AuthGuard)
+      .useValue(mockGuard)
+      .compile();
 
     authController = module.get<AuthController>(AuthController);
     authService = module.get<AuthService>(AuthService);
