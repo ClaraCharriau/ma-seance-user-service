@@ -7,6 +7,7 @@ import {
   Param,
   Patch,
   Post,
+  UseGuards,
 } from '@nestjs/common';
 import { UpdateUserDto } from 'src/user/dto/updateUser.dto';
 import { UserDto } from 'src/user/dto/user.dto';
@@ -16,6 +17,7 @@ import { LogInDto } from './dto/logIn.dto';
 import { SignInDto } from './dto/signIn.dto';
 import { TokenDto } from './dto/token.dto';
 import { VerifyResponseDto } from './dto/verifyResponse.dto';
+import { AuthGuard } from '../guard/auth.gard';
 
 @Controller('v1/auth')
 export class AuthController {
@@ -58,17 +60,18 @@ export class AuthController {
    * will receive an id in param and a updateUserDto in the request body,
    * and will return the successfully updated user.
    *
-   * @param id
+   * @param userId
    * @param updateUserDto
    * @returns Promise<UserDto>
    */
+  @UseGuards(AuthGuard)
   @HttpCode(HttpStatus.CREATED)
-  @Patch('registrations/:id')
+  @Patch('registrations/:userId')
   updateUser(
-    @Param('id') id: string,
+    @Param('userId') userId: string,
     @Body() updateUserDto: UpdateUserDto,
   ): Promise<UserDto> {
-    return this.authService.updateUser(id, updateUserDto);
+    return this.authService.updateUser(userId, updateUserDto);
   }
 
   /**
@@ -76,13 +79,14 @@ export class AuthController {
    * will receive an id in param,
    * and will delete user account.
    *
-   * @param id
+   * @param userId
    * @returns Promise<void>
    */
+  @UseGuards(AuthGuard)
   @HttpCode(HttpStatus.NO_CONTENT)
-  @Delete('registrations/:id')
-  deleteUser(@Param('id') id: string): Promise<void> {
-    return this.authService.deleteUser(id);
+  @Delete('registrations/:userId')
+  deleteUser(@Param('userId') userId: string): Promise<void> {
+    return this.authService.deleteUser(userId);
   }
 
   /**
