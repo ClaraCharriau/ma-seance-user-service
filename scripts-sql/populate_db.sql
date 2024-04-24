@@ -1,4 +1,3 @@
--- Active: 1705399760488@@127.0.0.1@5432@maseance
 INSERT INTO theater (id_theater, name, address, image_path, booking_path) VALUES
     ('20cd8109-efaf-472b-aa58-9e38afcdde36', 'C2L Saint-Germain', '25-27-29, rue du Vieux-Marche 78100 Saint-Germain-en-Laye', '/c2l-saint-germain', 'https://www.ugc.fr'),
     ('2b61a248-35cb-42cb-8f43-7b5b6fc50cc5', 'C2L Poissy', '112 Rue du Général de Gaulle 78300 Poissy', '/c2l-poissy', 'https://www.ugc.fr'),

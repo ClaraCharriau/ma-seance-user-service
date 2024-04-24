@@ -1,4 +1,3 @@
--- Active: 1705399760488@@127.0.0.1@5432@maseance
 CREATE DATABASE maseance;
 
 DROP TABLE IF EXISTS "user" CASCADE;
