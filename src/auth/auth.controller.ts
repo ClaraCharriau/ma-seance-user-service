@@ -48,11 +48,7 @@ export class AuthController {
   @HttpCode(HttpStatus.CREATED)
   @Post('registrations')
   signIn(@Body() signInDto: SignInDto): Promise<UserDto> {
-    return this.authService.signIn(
-      signInDto.email,
-      signInDto.pseudo,
-      signInDto.password,
-    );
+    return this.authService.signIn(signInDto);
   }
 
   /**

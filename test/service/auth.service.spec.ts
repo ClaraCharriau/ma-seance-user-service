@@ -99,11 +99,15 @@ describe('AuthService', () => {
 
   it('should throw BadRequestException if user with given email already exists', async () => {
     // Given
-    const email = 'test@example.com';
+    const signInDto = {
+      email: 'test@example.com',
+      pseudo: 'TotoDu67',
+      password: 'awesomePass18789'
+    }
     jest.spyOn(userService, 'existsByEmail').mockResolvedValueOnce(true);
 
     // When
-    await expect(authService.signIn(email, 'test', 'password')).rejects.toThrow(
+    await expect(authService.signIn(signInDto)).rejects.toThrow(
       BadRequestException,
     );
   });
@@ -111,23 +115,29 @@ describe('AuthService', () => {
   it('should create a new user and return it if user with given email does not exist', async () => {
     // Given
     const email = 'test@example.com';
+    const pseudo = 'TotoDu67';
+    const signInDto = {
+      email,
+      pseudo,
+      password: 'awesomePass18789'
+    }
     const id = 'e047bda3-b2fa-418b-adb6-c0cfaad7b18b';
     jest.spyOn(userService, 'existsByEmail').mockResolvedValueOnce(false);
     jest.spyOn(userService, 'createUser').mockResolvedValueOnce({
       id,
       email,
-      pseudo: 'test',
+      pseudo,
       password: 'hashPass',
     });
 
     // When
-    const result = await authService.signIn(email, 'test', 'password');
+    const result = await authService.signIn(signInDto);
 
     // Then
     expect(result).toEqual({
       id: 'e047bda3-b2fa-418b-adb6-c0cfaad7b18b',
-      email,
-      pseudo: 'test',
+      email: 'test@example.com',
+      pseudo: 'TotoDu67',
       password: 'hashPass',
     });
   });

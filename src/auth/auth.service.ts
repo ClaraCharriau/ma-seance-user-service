@@ -9,6 +9,7 @@ import { UserDto } from 'src/user/dto/user.dto';
 import { UserService } from '../user/user.service';
 import { TokenDto } from './dto/token.dto';
 import { VerifyResponseDto } from './dto/verifyResponse.dto';
+import { SignInDto } from './dto/signIn.dto';
 const bcrypt = require('bcrypt');
 
 /**
@@ -37,16 +38,16 @@ export class AuthService {
     throw new UnauthorizedException();
   }
 
-  async signIn(email: string, pseudo: string, password: string): Promise<UserDto> {
+  async signIn(signInDto: SignInDto): Promise<UserDto> {
     // Check if user exists by email before create
-    const isExistingUser = await this.userService.existsByEmail(email);
+    const isExistingUser = await this.userService.existsByEmail(signInDto.email);
     if (isExistingUser) {
       throw new BadRequestException(
-        `User with email: ${email} already exists.`,
+        `User with email: ${signInDto.email} already exists.`,
       );
     }
 
-    return await this.userService.createUser(email, pseudo, password);
+    return await this.userService.createUser(signInDto.email, signInDto.pseudo, signInDto.password);
   }
 
   async verify(email: string): Promise<VerifyResponseDto> {
