@@ -65,7 +65,7 @@ export class AuthController {
    * @returns Promise<UserDto>
    */
   @UseGuards(AuthGuard)
-  @HttpCode(HttpStatus.CREATED)
+  @HttpCode(HttpStatus.OK)
   @Patch('registrations/:userId')
   updateUser(
     @Param('userId') userId: string,

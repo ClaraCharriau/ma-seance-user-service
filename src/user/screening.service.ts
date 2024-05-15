@@ -4,6 +4,7 @@ import { Repository } from 'typeorm';
 import { InjectRepository } from '@nestjs/typeorm';
 import { ScreeningDto } from './dto/screening.dto';
 import { User } from './entity/user.entity';
+import { MovieService } from 'src/movie/movie.service';
 
 @Injectable()
 export class ScreeningService {
@@ -12,6 +13,7 @@ export class ScreeningService {
     private screeningsRepository: Repository<Screening>,
     @InjectRepository(User)
     private usersRepository: Repository<User>,
+    private movieService: MovieService
   ) {}
 
   /**
@@ -30,7 +32,7 @@ export class ScreeningService {
       .leftJoinAndSelect('screening.theater', 'theater')
       .getMany();
 
-    return ScreeningDto.fromScreenings(screenings);
+    return ScreeningDto.fromScreenings(screenings, this.movieService);
   }
 
   async addScreeningToUserAgenda(userId: string, screeningId: string) {

@@ -9,7 +9,8 @@ import { Movie } from './user/entity/movie.entity';
 import { Screening } from './user/entity/screening.entity';
 import { Theater } from './user/entity/theater.entity';
 import { UserModule } from './user/user.module';
-import { ScreeningService } from './user/screening.service';
+import { MovieModule } from './movie/movie.module';
+import { HttpModule } from '@nestjs/axios';
 
 dotenv.config({ path: '.env.local' });
 
@@ -17,6 +18,7 @@ dotenv.config({ path: '.env.local' });
   imports: [
     AuthModule,
     UserModule,
+    HttpModule,
     ConfigModule.forRoot(),
     TypeOrmModule.forRoot({
       type: 'postgres',
@@ -28,6 +30,7 @@ dotenv.config({ path: '.env.local' });
       entities: [User, Movie, Screening, Theater],
       synchronize: false,
     }),
+    MovieModule,
   ],
   controllers: [],
   providers: [],
