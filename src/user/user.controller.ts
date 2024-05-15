@@ -35,8 +35,15 @@ export class UserController {
   @UseGuards(AuthGuard)
   @HttpCode(HttpStatus.OK)
   @Get('/:userId/watchlist-movies')
-  getUserWatchlistMovies(@Param('userId') userId: string): Promise<MovieDto[]> {
-    return this.watchlistService.getUserWatchlistMovies(userId);
+  getUserWatchlistMovies(@Param('userId') userId: string) {
+    const watchlistMovies =
+      this.watchlistService.getUserWatchlistMovies(userId);
+    return {
+      _metadata: {
+        total_count: 200,
+      },
+      records: watchlistMovies,
+    };
   }
 
   /**
