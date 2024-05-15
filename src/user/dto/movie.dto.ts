@@ -1,18 +1,13 @@
-import { Movie } from "../entity/movie.entity";
-
 export class MovieDto {
-    id: string;
-    tmdbId: string;
-
-    static fromMovie(movie: Movie): MovieDto {
-        let movieDto = new MovieDto();
-
-        movieDto.id = movie.id;
-        movieDto.tmdbId = movie.tmdbId;
-        return movieDto;
-    }
-
-    static fromMovies(movies: Movie[]): MovieDto[] {
-        return movies.map(movie => this.fromMovie(movie));
-    }
+  id: string;
+  title: string;
+  posterLink: string;
+  releaseDate: string;
+  duration: number;
+  resume: string;
+  trailerLink: string;
+  photoLink: string;
+  directors: string[];
+  cast: string[];
+  genres: string[];
 }

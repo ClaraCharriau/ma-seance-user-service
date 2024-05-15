@@ -1,3 +1,4 @@
+import { MovieService } from 'src/movie/movie.service';
 import { Screening } from '../entity/screening.entity';
 import { MovieDto } from './movie.dto';
 import { TheaterDto } from './theater.dto';
@@ -8,17 +9,26 @@ export class ScreeningDto {
   movie: MovieDto;
   theater: TheaterDto;
 
-  static fromScreening(screening: Screening) {
+  static async fromScreening(screening: Screening, movieService: MovieService) {
     let screeningDto = new ScreeningDto();
+
+    const movieDto = await movieService.getMovie(screening.movie.id);
 
     screeningDto.id = screening.id;
     screeningDto.date = new Date(screening.date);
-    screeningDto.movie = screening.movie;
+    screeningDto.movie = movieDto;
     screeningDto.theater = screening.theater;
     return screeningDto;
   }
 
-  static fromScreenings(screenings: Screening[]) {
-    return screenings.map((screening) => this.fromScreening(screening));
+  static async fromScreenings(
+    screenings: Screening[],
+    movieService: MovieService,
+  ) {
+    return Promise.all(
+      screenings.map((screening) =>
+        this.fromScreening(screening, movieService),
+      ),
+    );
   }
 }

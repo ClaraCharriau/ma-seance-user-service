@@ -1,13 +1,10 @@
-import {
-  BadRequestException,
-  Injectable,
-  NotFoundException,
-} from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { User } from './entity/user.entity';
+import { MovieService } from 'src/movie/movie.service';
 import { Repository } from 'typeorm';
-import { Movie } from './entity/movie.entity';
 import { MovieDto } from './dto/movie.dto';
+import { Movie } from './entity/movie.entity';
+import { User } from './entity/user.entity';
 
 @Injectable()
 export class WatchlistService {
@@ -16,6 +13,7 @@ export class WatchlistService {
     private moviesRepository: Repository<Movie>,
     @InjectRepository(User)
     private usersRepository: Repository<User>,
+    private movieService: MovieService,
   ) {}
 
   /**
@@ -32,7 +30,7 @@ export class WatchlistService {
       .where('user.id_user = :userId', { userId })
       .getMany();
 
-    return MovieDto.fromMovies(movies);
+    return this.buildMovieDtoList(movies);
   }
 
   async removeMovieFromWatchlist(userId: string, movieId: string) {
@@ -97,5 +95,14 @@ export class WatchlistService {
       throw new NotFoundException(`Movie with id : ${movieId} not found`);
     }
     return movie;
+  }
+
+  private async buildMovieDtoList(movies: Movie[]): Promise<MovieDto[]> {
+    const movieDtoList: MovieDto[] = [];
+    for (const movie of movies) {
+      const movieDto = await this.movieService.getMovie(movie.id);
+      movieDtoList.push(movieDto);
+    }
+    return movieDtoList;
   }
 }
