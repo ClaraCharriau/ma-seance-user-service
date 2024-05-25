@@ -2,10 +2,11 @@ import { MovieService } from 'src/movie/movie.service';
 import { Screening } from '../entity/screening.entity';
 import { MovieDto } from './movie.dto';
 import { TheaterDto } from './theater.dto';
+import { ScheduleDto } from './schedule.dto';
 
 export class ScreeningDto {
   id: string;
-  date: Date;
+  schedule: ScheduleDto;
   movie: MovieDto;
   theater: TheaterDto;
 
@@ -15,7 +16,7 @@ export class ScreeningDto {
     const movieDto = await movieService.getMovie(screening.movie.id);
 
     screeningDto.id = screening.id;
-    screeningDto.date = new Date(screening.date);
+    screeningDto.schedule = ScheduleDto.fromDate(screening.date);
     screeningDto.movie = movieDto;
     screeningDto.theater = screening.theater;
     return screeningDto;

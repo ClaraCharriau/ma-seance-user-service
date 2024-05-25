@@ -10,7 +10,6 @@ import {
 } from '@nestjs/common';
 import { WatchlistService } from './watchlist.service';
 import { AuthGuard } from '../guard/auth.gard';
-import { MovieDto } from './dto/movie.dto';
 import { TheaterDto } from './dto/theater.dto';
 import { FavTheaterService } from './fav-theater.service';
 import { ScreeningDto } from './dto/screening.dto';
