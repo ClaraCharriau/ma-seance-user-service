@@ -9,6 +9,9 @@ on:
   pull_request:
     branches: [ "main", "develop" ]
 
+env:
+  MA_SEANCE_SCREENING_API_PATH: http://localhost:8080/maseance/api
+
 jobs:
   build:
 

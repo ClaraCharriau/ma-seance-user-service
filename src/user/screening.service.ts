@@ -4,7 +4,7 @@ import { Repository } from 'typeorm';
 import { InjectRepository } from '@nestjs/typeorm';
 import { ScreeningDto } from './dto/screening.dto';
 import { User } from './entity/user.entity';
-import { MovieService } from 'src/movie/movie.service';
+import { MovieService } from '../movie/movie.service';
 
 @Injectable()
 export class ScreeningService {
@@ -13,7 +13,7 @@ export class ScreeningService {
     private screeningsRepository: Repository<Screening>,
     @InjectRepository(User)
     private usersRepository: Repository<User>,
-    private movieService: MovieService
+    private movieService: MovieService,
   ) {}
 
   /**

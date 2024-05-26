@@ -68,12 +68,32 @@ describe('UserController', () => {
     const userId = '123';
     const watchlist = [
       {
-        id: 'f1545604-573e-4d46-9644-0279b1967e2c',
-        tmdbId: '437342',
+        id: 'cff01b1b-a943-4bcf-a396-afd80417150a',
+        title: 'Dune',
+        releaseDate: '2024-03-31',
+        duration: 166,
+        resume:
+          "Paul Atréides se rallie à Chani et aux Fremen tout en préparant sa revanche contre ceux qui ont détruit sa famille. Alors qu'il doit faire un choix entre l'amour de sa vie et le destin de la galaxie, il devra néanmoins tout faire pour empêcher un terrible futur que lui seul peut prédire.",
+        trailerLink: '',
+        posterLink: '/qpyaW4xUPeIiYA5ckg5zAZFHvsb.jpg',
+        photoLink: '',
+        directors: ['Denis Villeneuve'],
+        cast: ['Timothée Chalamet', 'Zendaya', 'Rebecca Ferguson'],
+        genres: ['Drame', 'Science-Fiction'],
       },
       {
-        id: 'b90c3b68-cb48-47bb-bbe9-66b2b594e9f2',
-        tmdbId: '1125311',
+        id: 'dd4cdbd2-44b7-4fb4-84b4-4f016d379ddb',
+        title: 'The Grand Budapest Hotel',
+        releaseDate: '2014-02-26',
+        duration: 100,
+        resume:
+          'Pendant l’entre‐deux guerres, le légendaire concierge d’un grand hôtel et son jeune protégé se retrouvent impliqués dans une histoire mêlant le vol d’un tableau de la Renaissance, la bataille pour une énorme fortune familiale, et le lent puis soudain bouleversement qui transforme l’Europe en cette première moitié de XXème siècle.',
+        trailerLink: '',
+        posterLink: '/atLMzzA7pOB0BdfM89V7BbdtLN6.jpg',
+        photoLink: '/xHDynIimfsgj0ZOs0j5ma8v1vmM.jpg',
+        directors: ['Wes Anderson'],
+        cast: ['Ralph Fiennes', 'Zendaya', 'Rebecca Ferguson'],
+        genres: ['Comédie', 'Drame'],
       },
     ];
     jest
@@ -84,7 +104,7 @@ describe('UserController', () => {
     const result = await userController.getUserWatchlistMovies(userId);
 
     // Then
-    expect(result).toEqual(watchlist);
+    expect(result.records).toEqual(watchlist);
   });
 
   it('should return 200 when successfully delete movie in user watchlist', async () => {
@@ -201,10 +221,27 @@ describe('UserController', () => {
     const screenings = [
       {
         id: '07e4c502-741f-4455-b54a-890a2951c65d',
-        date: new Date('2024-04-10T16:00:00.000Z'),
+        schedule: {
+          date: new Date('2024-04-14T19:15:00.000Z'),
+          dayName: 'dimanche',
+          dayNumber: '17',
+          month: 'mars',
+          year: '2024',
+          hourly: '11:45',
+        },
         movie: {
-          id: '0d1aef7d-d76a-4d14-9461-d6470b7c4de9',
-          tmdbId: '1011985',
+          id: 'cff01b1b-a943-4bcf-a396-afd80417150a',
+          title: 'Dune',
+          releaseDate: '2024-03-31',
+          duration: 166,
+          resume:
+            "Paul Atréides se rallie à Chani et aux Fremen tout en préparant sa revanche contre ceux qui ont détruit sa famille. Alors qu'il doit faire un choix entre l'amour de sa vie et le destin de la galaxie, il devra néanmoins tout faire pour empêcher un terrible futur que lui seul peut prédire.",
+          trailerLink: '',
+          posterLink: '/qpyaW4xUPeIiYA5ckg5zAZFHvsb.jpg',
+          photoLink: '',
+          directors: ['Denis Villeneuve'],
+          cast: ['Timothée Chalamet', 'Zendaya', 'Rebecca Ferguson'],
+          genres: ['Drame', 'Science-Fiction'],
         },
         theater: {
           id: '20cd8109-efaf-472b-aa58-9e38afcdde36',
@@ -216,10 +253,27 @@ describe('UserController', () => {
       },
       {
         id: '9e1d4a7d-5b14-41d9-af63-8d4f032da07d',
-        date: new Date('2024-04-14T19:15:00.000Z'),
+        schedule: {
+          date: new Date('2024-04-14T19:15:00.000Z'),
+          dayName: 'dimanche',
+          dayNumber: '17',
+          month: 'mars',
+          year: '2024',
+          hourly: '11:45',
+        },
         movie: {
-          id: 'be641c4f-36c0-4be2-b9d4-b7eef79767b4',
-          tmdbId: '998022',
+          id: '3d8f1342-15f1-44b1-a48f-4581d654b94a',
+          title: 'Pauvres créatures',
+          releaseDate: '2024-01-17',
+          duration: 90,
+          resume:
+            "Après s'être noyée pour échapper à son mari violent, le cerveau de Bella Baxter est remplacé par celui de son enfant à naître.",
+          trailerLink: 'https://www.youtube.com/watch?v=ZGwOzkF6HjI&t=1s',
+          posterLink: '/5fT98da9ccWN2xr8VOJrSBp3Cdw.jpg',
+          photoLink: '/bQS43HSLZzMjZkcHJz4fGc7fNdz.jpg',
+          directors: ['Yorgos Lanthimos'],
+          cast: ['Emma Stone', 'Mark Ruffalo', 'Willem Dafoe'],
+          genres: ['Science-Fiction', 'Comédie'],
         },
         theater: {
           id: 'cf21273d-1c18-47c6-a3cf-6868e19e826f',
