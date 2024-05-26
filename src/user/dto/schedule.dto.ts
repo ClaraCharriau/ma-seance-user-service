@@ -1,4 +1,4 @@
-import { DateUtils } from 'src/util/date.util';
+import { DateUtils } from '../../util/date.util';
 
 export class ScheduleDto {
   date: Date;
