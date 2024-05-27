@@ -24,15 +24,11 @@
 							}
 						},
 						"url": {
-							"raw": "localhost:3030/maseance/api/v1/auth/login",
+							"raw": "{{base-url}}v1/auth/login",
 							"host": [
-								"localhost"
+								"{{base-url}}v1"
 							],
-							"port": "3030",
 							"path": [
-								"maseance",
-								"api",
-								"v1",
 								"auth",
 								"login"
 							]
@@ -62,15 +58,11 @@
 							}
 						},
 						"url": {
-							"raw": "localhost:3030/maseance/api/v1/auth/login",
+							"raw": "{{base-url}}v1/auth/login",
 							"host": [
-								"localhost"
+								"{{base-url}}v1"
 							],
-							"port": "3030",
 							"path": [
-								"maseance",
-								"api",
-								"v1",
 								"auth",
 								"login"
 							]
@@ -93,15 +85,11 @@
 							}
 						},
 						"url": {
-							"raw": "localhost:3030/maseance/api/v1/auth/registrations",
+							"raw": "{{base-url}}v1/auth/registrations",
 							"host": [
-								"localhost"
+								"{{base-url}}v1"
 							],
-							"port": "3030",
 							"path": [
-								"maseance",
-								"api",
-								"v1",
 								"auth",
 								"registrations"
 							]
@@ -124,15 +112,11 @@
 							}
 						},
 						"url": {
-							"raw": "localhost:3030/maseance/api/v1/auth/registrations",
+							"raw": "{{base-url}}v1/auth/registrations",
 							"host": [
-								"localhost"
+								"{{base-url}}v1"
 							],
-							"port": "3030",
 							"path": [
-								"maseance",
-								"api",
-								"v1",
 								"auth",
 								"registrations"
 							]
@@ -155,15 +139,11 @@
 							}
 						},
 						"url": {
-							"raw": "localhost:3030/maseance/api/v1/auth/verify",
+							"raw": "{{base-url}}v1/auth/verify",
 							"host": [
-								"localhost"
+								"{{base-url}}v1"
 							],
-							"port": "3030",
 							"path": [
-								"maseance",
-								"api",
-								"v1",
 								"auth",
 								"verify"
 							]
@@ -186,15 +166,11 @@
 							}
 						},
 						"url": {
-							"raw": "localhost:3030/maseance/api/v1/auth/verify",
+							"raw": "{{base-url}}v1/auth/verify",
 							"host": [
-								"localhost"
+								"{{base-url}}v1"
 							],
-							"port": "3030",
 							"path": [
-								"maseance",
-								"api",
-								"v1",
 								"auth",
 								"verify"
 							]
@@ -217,15 +193,11 @@
 							}
 						},
 						"url": {
-							"raw": "localhost:3030/maseance/api/v1/auth/verify",
+							"raw": "{{base-url}}v1/auth/verify",
 							"host": [
-								"localhost"
+								"{{base-url}}v1"
 							],
-							"port": "3030",
 							"path": [
-								"maseance",
-								"api",
-								"v1",
 								"auth",
 								"verify"
 							]
@@ -248,15 +220,11 @@
 							}
 						},
 						"url": {
-							"raw": "localhost:3030/maseance/api/v1/auth/registrations/e6dcf476-1182-48d8-87e4-f9678fc8cfc4",
+							"raw": "{{base-url}}v1/auth/registrations/e6dcf476-1182-48d8-87e4-f9678fc8cfc4",
 							"host": [
-								"localhost"
+								"{{base-url}}v1"
 							],
-							"port": "3030",
 							"path": [
-								"maseance",
-								"api",
-								"v1",
 								"auth",
 								"registrations",
 								"e6dcf476-1182-48d8-87e4-f9678fc8cfc4"
@@ -280,15 +248,11 @@
 							}
 						},
 						"url": {
-							"raw": "localhost:3030/maseance/api/v1/auth/registrations/1",
+							"raw": "{{base-url}}v1/auth/registrations/1",
 							"host": [
-								"localhost"
+								"{{base-url}}v1"
 							],
-							"port": "3030",
 							"path": [
-								"maseance",
-								"api",
-								"v1",
 								"auth",
 								"registrations",
 								"1"
@@ -303,15 +267,11 @@
 						"method": "DELETE",
 						"header": [],
 						"url": {
-							"raw": "localhost:3030/maseance/api/v1/auth/registrations/e6dcf476-1182-48d8-87e4-f9678fc8cfc4",
+							"raw": "{{base-url}}v1/auth/registrations/e6dcf476-1182-48d8-87e4-f9678fc8cfc4",
 							"host": [
-								"localhost"
+								"{{base-url}}v1"
 							],
-							"port": "3030",
 							"path": [
-								"maseance",
-								"api",
-								"v1",
 								"auth",
 								"registrations",
 								"e6dcf476-1182-48d8-87e4-f9678fc8cfc4"
@@ -326,15 +286,11 @@
 						"method": "DELETE",
 						"header": [],
 						"url": {
-							"raw": "localhost:3030/maseance/api/v1/auth/registrations/21d80f36-45b8-410f-a973-1e6e44415e4a",
+							"raw": "{{base-url}}v1/auth/registrations/21d80f36-45b8-410f-a973-1e6e44415e4a",
 							"host": [
-								"localhost"
+								"{{base-url}}v1"
 							],
-							"port": "3030",
 							"path": [
-								"maseance",
-								"api",
-								"v1",
 								"auth",
 								"registrations",
 								"21d80f36-45b8-410f-a973-1e6e44415e4a"
@@ -346,17 +302,569 @@
 			]
 		},
 		{
-			"name": "Users",
+			"name": "User",
 			"item": [
 				{
-					"name": "watchlist - 200",
+					"name": "watchlist",
+					"item": [
+						{
+							"name": "watchlist - 200",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{base-url}}v1/users/{{joey-user-id}}/watchlist-movies",
+									"host": [
+										"{{base-url}}v1"
+									],
+									"path": [
+										"users",
+										"{{joey-user-id}}",
+										"watchlist-movies"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "watchlist - 401",
+							"request": {
+								"auth": {
+									"type": "noauth"
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{base-url}}v1/users/7b00a15d-7c78-44fc-a4b8-b920b88f4a41/watchlist-movies",
+									"host": [
+										"{{base-url}}v1"
+									],
+									"path": [
+										"users",
+										"7b00a15d-7c78-44fc-a4b8-b920b88f4a41",
+										"watchlist-movies"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "watchlist - 204",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "{{base-url}}v1/users/{{joey-user-id}}/watchlist-movies/e143963a-6228-4459-96a6-fa2dd2207a24",
+									"host": [
+										"{{base-url}}v1"
+									],
+									"path": [
+										"users",
+										"{{joey-user-id}}",
+										"watchlist-movies",
+										"e143963a-6228-4459-96a6-fa2dd2207a24"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "watchlist - 201",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [],
+								"url": {
+									"raw": "{{base-url}}v1/users/{{joey-user-id}}/watchlist-movies/e143963a-6228-4459-96a6-fa2dd2207a24",
+									"host": [
+										"{{base-url}}v1"
+									],
+									"path": [
+										"users",
+										"{{joey-user-id}}",
+										"watchlist-movies",
+										"e143963a-6228-4459-96a6-fa2dd2207a24"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "favorite theaters",
+					"item": [
+						{
+							"name": "fav theaters - 200",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{base-url}}v1/users/{{joey-user-id}}/favorite-theaters",
+									"host": [
+										"{{base-url}}v1"
+									],
+									"path": [
+										"users",
+										"{{joey-user-id}}",
+										"favorite-theaters"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "fav theaters - 401",
+							"request": {
+								"auth": {
+									"type": "noauth"
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{base-url}}v1/users/{{joey-user-id}}/favorite-theaters",
+									"host": [
+										"{{base-url}}v1"
+									],
+									"path": [
+										"users",
+										"{{joey-user-id}}",
+										"favorite-theaters"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "fav theaters - 201",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [],
+								"url": {
+									"raw": "{{base-url}}v1/users/{{joey-user-id}}/favorite-theaters/9f51e760-98f0-4a3f-9613-b3603d61e536",
+									"host": [
+										"{{base-url}}v1"
+									],
+									"path": [
+										"users",
+										"{{joey-user-id}}",
+										"favorite-theaters",
+										"9f51e760-98f0-4a3f-9613-b3603d61e536"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "fav theaters - 204",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "{{base-url}}v1/users/{{joey-user-id}}/favorite-theaters/9f51e760-98f0-4a3f-9613-b3603d61e536",
+									"host": [
+										"{{base-url}}v1"
+									],
+									"path": [
+										"users",
+										"{{joey-user-id}}",
+										"favorite-theaters",
+										"9f51e760-98f0-4a3f-9613-b3603d61e536"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "screenings",
+					"item": [
+						{
+							"name": "screenings - 200",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{base-url}}v1/users/{{joey-user-id}}/screenings",
+									"host": [
+										"{{base-url}}v1"
+									],
+									"path": [
+										"users",
+										"{{joey-user-id}}",
+										"screenings"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "screenings - 201",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [],
+								"url": {
+									"raw": "{{base-url}}v1/users/{{joey-user-id}}/screenings/f50ec679-12bb-4d9b-b96c-1b9b9e9442d9",
+									"host": [
+										"{{base-url}}v1"
+									],
+									"path": [
+										"users",
+										"{{joey-user-id}}",
+										"screenings",
+										"f50ec679-12bb-4d9b-b96c-1b9b9e9442d9"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "screenings - 204",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "{{base-url}}v1/users/{{joey-user-id}}/screenings/f50ec679-12bb-4d9b-b96c-1b9b9e9442d9",
+									"host": [
+										"{{base-url}}v1"
+									],
+									"path": [
+										"users",
+										"{{joey-user-id}}",
+										"screenings",
+										"f50ec679-12bb-4d9b-b96c-1b9b9e9442d9"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "Screening",
+			"item": [
+				{
+					"name": "movies",
+					"item": [
+						{
+							"name": "currently playing - 200",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{base-url-screenings}}v1/movies/currently?extended_infos=true",
+									"host": [
+										"{{base-url-screenings}}v1"
+									],
+									"path": [
+										"movies",
+										"currently"
+									],
+									"query": [
+										{
+											"key": "extended_infos",
+											"value": "true"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "movie details",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{base-url-screenings}}v1/movies/0d1aef7d-d76a-4d14-9461-d6470b7c4de9?extended_infos=true",
+									"host": [
+										"{{base-url-screenings}}v1"
+									],
+									"path": [
+										"movies",
+										"0d1aef7d-d76a-4d14-9461-d6470b7c4de9"
+									],
+									"query": [
+										{
+											"key": "extended_infos",
+											"value": "true"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "screenings by movie id and day",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{base-url-screenings}}v1/movies/0d1aef7d-d76a-4d14-9461-d6470b7c4de9/screenings?day=1",
+									"host": [
+										"{{base-url-screenings}}v1"
+									],
+									"path": [
+										"movies",
+										"0d1aef7d-d76a-4d14-9461-d6470b7c4de9",
+										"screenings"
+									],
+									"query": [
+										{
+											"key": "day",
+											"value": "1"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "search movies",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{base-url-screenings}}v1/movies/search?q=Asterix",
+									"host": [
+										"{{base-url-screenings}}v1"
+									],
+									"path": [
+										"movies",
+										"search"
+									],
+									"query": [
+										{
+											"key": "q",
+											"value": "Asterix"
+										}
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "theaters",
+					"item": [
+						{
+							"name": "theater by id",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{base-url-screenings}}v1/theaters/36fe0edf-ef8c-46a3-a454-5743dbb6ad94",
+									"host": [
+										"{{base-url-screenings}}v1"
+									],
+									"path": [
+										"theaters",
+										"36fe0edf-ef8c-46a3-a454-5743dbb6ad94"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "movies by theater id",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{base-url-screenings}}v1/theaters/36fe0edf-ef8c-46a3-a454-5743dbb6ad94/movies",
+									"host": [
+										"{{base-url-screenings}}v1"
+									],
+									"path": [
+										"theaters",
+										"36fe0edf-ef8c-46a3-a454-5743dbb6ad94",
+										"movies"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "screenings by theater id",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{base-url-screenings}}v1/theaters/36fe0edf-ef8c-46a3-a454-5743dbb6ad94/screenings?day=1",
+									"host": [
+										"{{base-url-screenings}}v1"
+									],
+									"path": [
+										"theaters",
+										"36fe0edf-ef8c-46a3-a454-5743dbb6ad94",
+										"screenings"
+									],
+									"query": [
+										{
+											"key": "day",
+											"value": "1"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "search theaters",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{base-url-screenings}}v1/theaters/search?q=Strasbourg",
+									"host": [
+										"{{base-url-screenings}}v1"
+									],
+									"path": [
+										"theaters",
+										"search"
+									],
+									"query": [
+										{
+											"key": "q",
+											"value": "Strasbourg"
+										}
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "screenings",
+					"item": [
+						{
+							"name": "screening by id",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{base-url-screenings}}v1/screenings/07e4c502-741f-4455-b54a-890a2951c65d",
+									"host": [
+										"{{base-url-screenings}}v1"
+									],
+									"path": [
+										"screenings",
+										"07e4c502-741f-4455-b54a-890a2951c65d"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "TMDB",
+			"item": [
+				{
+					"name": "now playing",
 					"request": {
 						"auth": {
 							"type": "bearer",
 							"bearer": [
 								{
 									"key": "token",
-									"value": "{{token}}",
+									"value": "{{tmdb-token}}",
 									"type": "string"
 								}
 							]
@@ -364,104 +872,75 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{base-url}}v1/users/{{joey-user-id}}/watchlist-movies",
+							"raw": "https://api.themoviedb.org/3/movie/now_playing?language=fr-FR&page=1&region=FR",
+							"protocol": "https",
 							"host": [
-								"{{base-url}}v1"
+								"api",
+								"themoviedb",
+								"org"
 							],
 							"path": [
-								"users",
-								"{{joey-user-id}}",
-								"watchlist-movies"
+								"3",
+								"movie",
+								"now_playing"
+							],
+							"query": [
+								{
+									"key": "language",
+									"value": "fr-FR"
+								},
+								{
+									"key": "page",
+									"value": "1"
+								},
+								{
+									"key": "region",
+									"value": "FR"
+								}
 							]
 						}
 					},
 					"response": []
 				},
 				{
-					"name": "watchlist - 401",
-					"request": {
-						"auth": {
-							"type": "noauth"
-						},
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "{{base-url}}v1/users/7b00a15d-7c78-44fc-a4b8-b920b88f4a41/watchlist-movies",
-							"host": [
-								"{{base-url}}v1"
-							],
-							"path": [
-								"users",
-								"7b00a15d-7c78-44fc-a4b8-b920b88f4a41",
-								"watchlist-movies"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "watchlist - 204",
+					"name": "movie details",
 					"request": {
 						"auth": {
 							"type": "bearer",
 							"bearer": [
 								{
 									"key": "token",
-									"value": "{{token}}",
+									"value": "{{tmdb-token}}",
 									"type": "string"
 								}
 							]
 						},
-						"method": "DELETE",
+						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{base-url}}v1/users/{{joey-user-id}}/watchlist-movies/e143963a-6228-4459-96a6-fa2dd2207a24",
+							"raw": "https://api.themoviedb.org/3/movie/653346?append_to_response=credits%2Cvideos&language=fr-FR",
+							"protocol": "https",
 							"host": [
-								"{{base-url}}v1"
+								"api",
+								"themoviedb",
+								"org"
 							],
 							"path": [
-								"users",
-								"{{joey-user-id}}",
-								"watchlist-movies",
-								"e143963a-6228-4459-96a6-fa2dd2207a24"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "watchlist - 201",
-					"request": {
-						"method": "POST",
-						"header": [],
-						"url": {
-							"raw": "{{base-url}}v1/users/{{joey-user-id}}/watchlist-movies/e143963a-6228-4459-96a6-fa2dd2207a24",
-							"host": [
-								"{{base-url}}v1"
+								"3",
+								"movie",
+								"653346"
 							],
-							"path": [
-								"users",
-								"{{joey-user-id}}",
-								"watchlist-movies",
-								"e143963a-6228-4459-96a6-fa2dd2207a24"
+							"query": [
+								{
+									"key": "append_to_response",
+									"value": "credits%2Cvideos"
+								},
+								{
+									"key": "language",
+									"value": "fr-FR"
+								}
 							]
 						}
-					},
-					"response": []
-				},
-				{
-					"name": "fav theaters - 200",
-					"request": {
-						"method": "GET",
-						"header": []
-					},
-					"response": []
-				},
-				{
-					"name": "fav theaters - 401",
-					"request": {
-						"method": "GET",
-						"header": []
 					},
 					"response": []
 				}
@@ -497,12 +976,21 @@
 		},
 		{
 			"key": "token",
-			"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI0ZDc0N2U4Yi1lOTUwLTRlNjMtODIwMy00ZjVmZjdiNjcyMTEiLCJlbWFpbCI6ImpvZXlfdHJpYmJpYW5pQGV4YW1wbGUuY29tIiwiaWF0IjoxNzEyODM4OTYxLCJleHAiOjE3MTI4NTMzNjF9.GNzRVR4YK65gM_t0XnU7cOmPM14zMpCXFjIN2ax99PI",
+			"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoiNGQ3NDdlOGItZTk1MC00ZTYzLTgyMDMtNGY1ZmY3YjY3MjExIiwicHNldWRvIjoiSm9leSIsImVtYWlsIjoiam9leV90cmliYmlhbmlAZXhhbXBsZS5jb20iLCJwYXNzd29yZCI6IiQyYSQwNiRDbS9YdnowNTg3QUVESlE4VlpSN2lPS09HNHU5bm9XSjg2UWlRYm9tcnJpSFNXRFhHR1UvcSJ9LCJpYXQiOjE3MTU4NTM1NDYsImV4cCI6MTcxNTg2Nzk0Nn0.uxYbR8jw-A4UNswnNTQWsbExcYORoRxSuiGY8nLNveo",
 			"type": "string"
 		},
 		{
 			"key": "joey-user-id",
 			"value": "4d747e8b-e950-4e63-8203-4f5ff7b67211",
+			"type": "string"
+		},
+		{
+			"key": "tmdb-token",
+			"value": "eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJlMzkxZjQ5YTYxYmE0NDc1YmVmNzQwY2M2YjA4Mjc2ZSIsInN1YiI6IjY0NDNkNzY4YjNmNmY1MDRmNDllODcxMSIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.JIPJtniVA85bR8BRBoH5e87ONcBBTBelZ03WNM7Viag"
+		},
+		{
+			"key": "base-url-screenings",
+			"value": "localhost:8080/maseance/api/",
 			"type": "string"
 		}
 	]
