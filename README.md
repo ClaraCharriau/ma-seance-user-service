@@ -2,7 +2,10 @@
 
 ## Description
 
-to be written
+A TypeScript project using Nest.js.
+The project is a RESTful API that can be connected to maSéance front-end project. 
+
+It allows to create, read, update, and delete users informations and focus on authentification.
 
 ## Installation
 
