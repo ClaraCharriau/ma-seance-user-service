@@ -30,6 +30,7 @@ export class ScreeningService {
       .where('user.id_user = :userId', { userId })
       .leftJoinAndSelect('screening.movie', 'movie')
       .leftJoinAndSelect('screening.theater', 'theater')
+      .orderBy('screening.date', 'ASC')
       .getMany();
 
     return ScreeningDto.fromScreenings(screenings, this.movieService);
